@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "radix-nova",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@my-schedule/components",
+    "utils": "@my-schedule/lib/utils",
+    "ui": "@my-schedule/components/ui",
+    "lib": "@my-schedule/lib",
+    "hooks": "@my-schedule/hooks"
+  },
+  "iconLibrary": "lucide"
+}
