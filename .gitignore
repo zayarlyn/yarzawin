@@ -1,6 +1,7 @@
 vite.config.*.timestamp*
 
 .nx
+.claude
 
 **/node_modules
 **/dist

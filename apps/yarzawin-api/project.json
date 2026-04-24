@@ -65,6 +65,13 @@
       "options": {
         "passWithNoTests": true
       }
+    },
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/yarzawin-api/jest-e2e.config.cts",
+        "passWithNoTests": true
+      }
     }
   }
 }
