@@ -1,7 +1,8 @@
+// @ts-nocheck
 import request from 'supertest'
 import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
-import { appModuleMetadata } from '../src/app.module'
+import { appModuleMetadata } from 'src/app.module'
 
 describe('Journal (e2e)', () => {
   let app: INestApplication

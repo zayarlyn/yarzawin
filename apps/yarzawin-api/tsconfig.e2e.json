@@ -6,9 +6,5 @@
     "moduleResolution": "node10",
     "types": ["jest", "node"]
   },
-  "include": [
-    "jest-e2e.config.cts",
-    "test/**/*.ts",
-    "src/**/*.d.ts"
-  ]
+  "include": ["jest-e2e.config.cts", "src/**/*.e2e.ts", "src/**/*.d.ts"]
 }

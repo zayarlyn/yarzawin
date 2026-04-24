@@ -19,4 +19,4 @@ const deleteJournalSchema = z.object({
 // class is required for using DTO as a type
 export class CreateJournalDto extends createZodDto(createJournalSchema) {}
 export class UpdateJournalDto extends createZodDto(updateJournalSchema) {}
-export class deleteJournalDto extends createZodDto(deleteJournalSchema) {}
+export class DeleteJournalDto extends createZodDto(deleteJournalSchema) {}

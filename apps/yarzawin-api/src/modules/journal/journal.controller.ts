@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common'
 import { JournalService } from './journal.service'
-import { CreateJournalDto, deleteJournalDto, UpdateJournalDto } from './journal.dto'
+import { CreateJournalDto, DeleteJournalDto, UpdateJournalDto } from './journal.dto'
 
 @Controller({ path: '/journals' })
 export class JournalController {
@@ -22,7 +22,7 @@ export class JournalController {
   }
 
   @Delete('/:id')
-  async deleteJournal(@Body() data: deleteJournalDto) {
+  async deleteJournal(@Body() data: DeleteJournalDto) {
     return this.journalService.deleteJournal(data)
   }
 }
