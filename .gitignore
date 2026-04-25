@@ -5,3 +5,5 @@ vite.config.*.timestamp*
 
 **/node_modules
 **/dist
+
+apps/yarzawin-web/src/routeTree.gen.ts
