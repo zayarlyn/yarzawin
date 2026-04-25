@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { EntityManager } from 'typeorm'
 import { DbService } from 'src/database/database.service'
 import { JournalEntity } from 'src/database/entities/JournalEntity'
-import { CreateJournalDto, deleteJournalDto, UpdateJournalDto } from './journal.dto'
+import { CreateJournalDto, DeleteJournalDto, UpdateJournalDto } from './journal.dto'
 
 @Injectable({})
 export class JournalService {
@@ -26,7 +26,7 @@ export class JournalService {
     return this.db.save(JournalEntity, data)
   }
 
-  async deleteJournal({ id }: deleteJournalDto) {
+  async deleteJournal({ id }: DeleteJournalDto) {
     await this.db.softDelete(JournalEntity, { id })
     return { id }
   }

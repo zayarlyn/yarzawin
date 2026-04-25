@@ -39,6 +39,12 @@
         "targetName": "test"
       },
       "exclude": ["apps/yarzawin-api-e2e/**/*"]
+    },
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
     }
   ],
   "generators": {

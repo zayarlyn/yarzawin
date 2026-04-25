@@ -1,11 +1,11 @@
-import NxWelcome from './nx-welcome';
+import NxWelcome from './nx-welcome'
 
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom'
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="my-schedule" />
+      <NxWelcome title="yarzawin-web" />
 
       {/* START: routes */}
       {/* These routes and navigation have been generated for you */}
@@ -28,8 +28,7 @@ export function App() {
           path="/"
           element={
             <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
+              This is the generated root route. <Link to="/page-2">Click here for page 2.</Link>
             </div>
           }
         />
@@ -44,7 +43,7 @@ export function App() {
       </Routes>
       {/* END: routes */}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
