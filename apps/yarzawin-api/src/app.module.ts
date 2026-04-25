@@ -1,5 +1,5 @@
 import { Module, ModuleMetadata } from '@nestjs/common'
-import { JournalModule } from './modules/journal/journal.module'
+import { DiaryModule } from './modules/diary/diary.module'
 import { DatabaseModule } from './database/database.module'
 import { APP_PIPE } from '@nestjs/core'
 import { ZodValidationPipe } from 'nestjs-zod'
@@ -11,7 +11,7 @@ export const appModuleMetadata: ModuleMetadata = {
       useClass: ZodValidationPipe,
     },
   ],
-  imports: [DatabaseModule, JournalModule],
+  imports: [DatabaseModule, DiaryModule],
 }
 
 @Module(appModuleMetadata)

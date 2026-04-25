@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import { appModuleMetadata } from 'src/app.module'
 
-describe('Journal (e2e)', () => {
+describe('Diary (e2e)', () => {
   let app: INestApplication
   let id: string
 
@@ -19,23 +19,23 @@ describe('Journal (e2e)', () => {
     await app.close()
   })
 
-  it('POST /api/journals — creates a journal', async () => {
+  it('POST /api/diaries — creates a diary', async () => {
     const res = await request(app.getHttpServer())
-      .post('/api/journals')
+      .post('/api/diaries')
       .send({ title: 'title ' + Date.now(), content: 'content ' + Date.now() })
     id = res.body.id
     expect(res.body.id).toBeDefined()
   })
 
-  it('PUT /api/journals/:id — updates the journal', async () => {
+  it('PUT /api/diaries/:id — updates the diary', async () => {
     const updatedFields = { id, title: 'Updated title', content: 'Updated content' }
-    const res = await request(app.getHttpServer()).put(`/api/journals/${id}`).send(updatedFields)
+    const res = await request(app.getHttpServer()).put(`/api/diaries/${id}`).send(updatedFields)
 
     expect(res.body).toMatchObject(updatedFields)
   })
 
-  it('DELETE /api/journals/:id — deletes the journal', async () => {
-    const res = await request(app.getHttpServer()).delete(`/api/journals/${id}`).send({ id })
+  it('DELETE /api/diaries/:id — deletes the diary', async () => {
+    const res = await request(app.getHttpServer()).delete(`/api/diaries/${id}`).send({ id })
     expect(res.body).toMatchObject({ id })
   })
 })

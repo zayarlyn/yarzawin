@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JournalEntity } from './entities/JournalEntity';
+import { DiaryEntity } from './entities/DiaryEntity';
 import { DbService } from './database.service';
 
 @Module({
@@ -10,7 +10,7 @@ import { DbService } from './database.service';
         return {
           type: 'sqlite',
           database: 'database.sqlite',
-          entities: [JournalEntity],
+          entities: [DiaryEntity],
           synchronize: true,
         };
       },

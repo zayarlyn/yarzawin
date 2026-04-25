@@ -1,10 +1,10 @@
-# Journaling api
+# Diary api
 
 ## tables
 
 - all tables have id, created_at, updated_at, deleted_at
 
-### journal
+### diary
 
 - title string (default now())
 - content string
