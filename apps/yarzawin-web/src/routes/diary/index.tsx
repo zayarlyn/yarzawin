@@ -8,7 +8,7 @@ export const Route = createFileRoute('/diary/')({
   component: DiaryPage,
 })
 
-export function DiaryPage() {
+function DiaryPage() {
   const { data } = useSuspenseQuery(diaryListQueryOptions())
   return (
     <ul>
