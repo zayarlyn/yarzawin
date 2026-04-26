@@ -1,12 +1,8 @@
-import { BeforeInsert, BeforeUpdate, CreateDateColumn, DeleteDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
-import { monotonicFactory } from 'ulid'
+import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
-const ulid = monotonicFactory()
-
-@Entity()
 export class BaseEntity {
-  @PrimaryColumn({ type: 'text', default: Date.now().toString() })
-  id: string = ulid()
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date

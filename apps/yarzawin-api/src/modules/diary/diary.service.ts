@@ -17,9 +17,7 @@ export class DiaryService {
   }
 
   async createDiary(data: CreateDiaryDto) {
-    const diary = this.db.create(DiaryEntity, data)
-
-    return this.db.save(DiaryEntity, diary)
+    return this.db.save(DiaryEntity, data)
   }
 
   async updateDiary(data: UpdateDiaryDto) {

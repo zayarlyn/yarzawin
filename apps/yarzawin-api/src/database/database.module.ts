@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DiaryEntity } from './entities/DiaryEntity'
 import { DbService } from './database.service'
-import { SettingEntity } from './entities/SetttingEntity'
+import { SettingEntity } from './entities/SettingEntity'
 
 @Module({
   imports: [
