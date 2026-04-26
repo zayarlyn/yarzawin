@@ -1,0 +1,11 @@
+- [ ] [yarzawin-api] migrate from sqlite to postgres
+- [ ] [yarzawin-api] write top settings api for diary preferences
+- [ ] [yarzawin-web] integrate backend with diary app
+- [ ] [yarzawin-web] move local state to routes
+- [ ] [yarzawin-web] retire DiaryContext
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]

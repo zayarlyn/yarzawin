@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  yarzawin-postgres:
+    container_name: yarzawin-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: yarzawin_user
+      POSTGRES_PASSWORD: yarzawin_pwd
+      POSTGRES_DB: yarzawin
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

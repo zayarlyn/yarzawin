@@ -8,18 +8,18 @@ interface RouterContext {
   queryClient: QueryClient
 }
 
-export const Route = createRootRouteWithContext<RouterContext>()({
-  component: RootLayout,
-})
-
 function RootLayout() {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
-      <TanStackRouterDevtools />
-      <ReactQueryDevtools />
+      {/* <TanStackRouterDevtools />
+      <ReactQueryDevtools /> */}
     </>
   )
 }
+
+export const Route = createRootRouteWithContext<RouterContext>()({
+  component: RootLayout,
+})

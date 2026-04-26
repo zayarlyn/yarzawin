@@ -122,4 +122,22 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .diary-root {
+    /* static tokens — never change at runtime */
+    --d-ink: #2a241c;
+    --d-ink-soft: #5b5246;
+    --d-ink-faint: #a89e8a;
+    --d-accent: #b8651e;
+    --d-accent-soft: #e8c89a;
+    --d-accent-tint: #f4e6d2;
+    --d-highlight: #f5d97a;
+    --d-shadow-sm: 0 1px 2px rgba(42,36,28,0.08);
+    --d-shadow-md: 0 4px 16px rgba(42,36,28,0.10), 0 1px 3px rgba(42,36,28,0.06);
+    --d-shadow-lg: 0 18px 48px rgba(42,36,28,0.18), 0 4px 12px rgba(42,36,28,0.08);
+    --d-hand: 'Caveat', cursive;
+    --d-serif: 'Lora', Georgia, serif;
+    --d-ui: 'Inter', system-ui, sans-serif;
+    /* paper tokens set dynamically via style prop — NOT declared here to avoid overriding JS values */
+  }
 }

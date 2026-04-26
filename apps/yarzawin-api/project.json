@@ -22,10 +22,7 @@
       "dependsOn": ["build"],
       "cache": true,
       "executor": "@nx/js:prune-lockfile",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/yarzawin-api/package.json",
-        "{workspaceRoot}/dist/apps/yarzawin-api/package-lock.json"
-      ],
+      "outputs": ["{workspaceRoot}/dist/apps/yarzawin-api/package.json", "{workspaceRoot}/dist/apps/yarzawin-api/package-lock.json"],
       "options": {
         "buildTarget": "build"
       }
@@ -43,11 +40,17 @@
       "dependsOn": ["prune-lockfile", "copy-workspace-modules"],
       "executor": "nx:noop"
     },
+    "docker-postgres": {
+      "command": "docker compose up -d"
+    },
+    "db:reset-schema": {
+      "command": "docker exec -i yarzawin-postgres psql -U yarzawin_user -d yarzawin < apps/yarzawin-api/src/database/sql/schema.sql"
+    },
     "serve": {
       "continuous": true,
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": ["docker-postgres", "build"],
       "options": {
         "buildTarget": "yarzawin-api:build",
         "runBuildTargetDependencies": false

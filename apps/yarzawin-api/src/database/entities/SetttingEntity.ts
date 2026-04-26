@@ -1,11 +1,11 @@
 import { Column, Entity } from 'typeorm'
 import { BaseEntity } from './BaseEntity'
 
-@Entity({ name: 'diary' })
-export class DiaryEntity extends BaseEntity {
+@Entity({ name: 'setting' })
+export class SettingEntity extends BaseEntity {
   @Column()
-  title: string
+  type: string
 
   @Column()
-  content: string
+  name: string
 }

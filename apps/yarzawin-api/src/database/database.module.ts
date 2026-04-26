@@ -1,18 +1,20 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DiaryEntity } from './entities/DiaryEntity';
-import { DbService } from './database.service';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { DiaryEntity } from './entities/DiaryEntity'
+import { DbService } from './database.service'
+import { SettingEntity } from './entities/SetttingEntity'
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory(...args) {
         return {
-          type: 'sqlite',
-          database: 'database.sqlite',
-          entities: [DiaryEntity],
-          synchronize: true,
-        };
+          type: 'postgres',
+          database: 'yarzawin',
+          username: 'yarzawin_user',
+          password: 'yarzawin_pwd',
+          entities: [DiaryEntity, SettingEntity],
+        }
       },
     }),
   ],
