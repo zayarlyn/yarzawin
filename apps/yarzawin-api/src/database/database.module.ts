@@ -10,9 +10,9 @@ import { SettingEntity } from './entities/SettingEntity'
       useFactory(...args) {
         return {
           type: 'postgres',
-          database: 'yarzawin',
-          username: 'yarzawin_user',
-          password: 'yarzawin_pwd',
+          database: process.env.DB_NAME,
+          username: process.env.DB_USER,
+          password: process.env.DB_PWD,
           entities: [DiaryEntity, SettingEntity],
         }
       },

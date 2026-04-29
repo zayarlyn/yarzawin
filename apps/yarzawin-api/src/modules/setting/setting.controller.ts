@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common'
 import { SettingService } from './setting.service'
 import { SaveSettingsByFeatureDto } from './setting.dto'
 
-@Controller({ path: '/setting' })
+@Controller({ path: '/settings' })
 export class SettingController {
   constructor(private settingService: SettingService) {}
 

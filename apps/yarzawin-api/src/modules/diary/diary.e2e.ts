@@ -19,6 +19,13 @@ describe('Diary (e2e)', () => {
     await app.close()
   })
 
+  it('GET /api/diaries — returns a list of diaries', async () => {
+    const res = await request(app.getHttpServer()).get('/api/diaries')
+
+    expect(res.status).toBe(200)
+    expect(Array.isArray(res.body)).toBe(true)
+  })
+
   it('POST /api/diaries — creates a diary', async () => {
     const res = await request(app.getHttpServer())
       .post('/api/diaries')

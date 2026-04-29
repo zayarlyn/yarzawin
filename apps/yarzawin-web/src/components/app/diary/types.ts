@@ -1,5 +1,5 @@
 export type PaperType = 'cream' | 'lined' | 'dotted' | 'bone'
-export type ViewType = 'list' | 'editor' | 'read'
+export type ViewType = 'editor' | 'read'
 
 export interface DiaryUIEntry {
   id: string
@@ -11,14 +11,10 @@ export interface DiaryUIEntry {
 }
 
 export interface DiaryUIPrefs {
-  onboarded: boolean
-  name: string
   paper: PaperType
 }
 
 export const DEFAULT_PREFS: DiaryUIPrefs = {
-  onboarded: false,
-  name: '',
   paper: 'cream',
 }
 

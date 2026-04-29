@@ -18,19 +18,26 @@ describe('Setting (e2e)', () => {
     await app.close()
   })
 
-  it('POST /api/setting/:feature — saves settings by feature', async () => {
+  it('GET /api/settings/:feature — returns an array', async () => {
+    const res = await request(app.getHttpServer()).get('/api/settings/diary')
+
+    expect(res.status).toBe(200)
+    expect(Array.isArray(res.body)).toBe(true)
+  })
+
+  it('POST /api/settings/:feature — saves settings by feature', async () => {
     const res = await request(app.getHttpServer())
-      .post('/api/setting/my-feature')
-      .send({ feature: 'my-feature', valueByTypeAndName: { theme: { color: 'white', fontSize: '14px' } } })
+      .post('/api/settings/diary')
+      .send({ feature: 'diary', valueByTypeAndName: { theme: { paper: 'cream' } } })
 
     expect(res.status).toBe(201)
   })
 
-  it('GET /api/setting/:feature — returns settings by feature', async () => {
-    const res = await request(app.getHttpServer()).get('/api/setting/my-feature')
+  it('GET /api/settings/:feature — returns settings by feature', async () => {
+    const res = await request(app.getHttpServer()).get('/api/settings/diary')
 
     expect(res.status).toBe(200)
     expect(Array.isArray(res.body)).toBe(true)
-    expect(res.body.some((s: { name: string; value: string }) => s.name === 'color' && s.value === 'white')).toBe(true)
+    expect(res.body.some((s: { name: string; value: string }) => s.name === 'paper' && s.value === 'cream')).toBe(true)
   })
 })

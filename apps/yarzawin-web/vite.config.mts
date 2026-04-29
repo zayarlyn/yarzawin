@@ -12,9 +12,9 @@ export default defineConfig(() => ({
   server: {
     port: 3010,
     host: 'localhost',
-    proxy: {
-      '/api': 'http://localhost:8010',
-    },
+    // proxy: {
+    //   '/api': 'http://localhost:8010',
+    // },
   },
   preview: {
     port: 3010,

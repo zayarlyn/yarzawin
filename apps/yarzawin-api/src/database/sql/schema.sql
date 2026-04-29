@@ -12,7 +12,7 @@ CREATE TABLE "diary" (
 
 CREATE TABLE "setting" (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  feature TEXT NOT NULL CHECK(LENGTH(type) < 40), -- sub-app
+  feature TEXT NOT NULL CHECK( feature IN ('diary') ), -- sub-app
   type TEXT NOT NULL CHECK(LENGTH(type) < 40), 
   name TEXT NOT NULL CHECK(LENGTH(type) < 40),
   value JSONB NOT NULL,
