@@ -5,13 +5,9 @@ import StarterKit, { StarterKitOptions } from '@tiptap/starter-kit'
 import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 import { format, parseISO } from 'date-fns'
 import debounce from 'lodash/debounce'
-import { useEffect, useMemo, useState } from 'react'
-import type { DiaryUIEntry } from './types'
-import { Badge } from '@yarzawin-web/components/ui/badge'
-import { DiaryListItemBadge } from './DiaryListItem'
-import { Icon } from '@yarzawin-web/components/shared/Icon'
-import { Button } from '@yarzawin-web/components/ui/button'
+import { useEffect, useState } from 'react'
 import EditorToolbar from './EditorToolbar'
+import type { DiaryUIEntry } from './types'
 
 const starterKitProps: Partial<StarterKitOptions> = {
   bold: false,
@@ -36,42 +32,35 @@ export function Editor({ setStatus, activeEntry }: { setStatus: (status: string)
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['diary', 'list'] }),
   })
   const [savedAt, setSavedAt] = useState<number | null>(null)
-  const [isEditing, setIsEditing] = useState(false)
 
   const contentEditor = useEditor({
     extensions: [StarterKit.configure(starterKitProps), Placeholder.configure({ placeholder: "start writing — what's on your mind?" })],
     content: activeEntry.body || '',
-    editable: isEditing,
+    editable: false,
   })
 
   const titleEditor = useEditor({
     extensions: [StarterKit.configure(starterKitProps), Placeholder.configure({ placeholder: 'give today a name…' })],
     content: activeEntry.title || '',
-    editable: isEditing,
+    editable: false,
   })
-
-  const queueSave = useMemo(
-    () =>
-      debounce(() => {
-        if (!contentEditor || !titleEditor) return
-        updateMutation.mutate({ id: activeEntry.id, title: titleEditor.getText(), content: contentEditor.getHTML() })
-        setSavedAt(Date.now())
-      }, 400),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [activeEntry.id, contentEditor],
-  )
-
-  useEffect(() => () => queueSave.cancel(), [queueSave])
 
   useEffect(() => {
     if (!contentEditor || !titleEditor) return
+
+    const queueSave = debounce(() => {
+      updateMutation.mutate({ id: activeEntry.id, title: titleEditor.getText(), content: contentEditor.getHTML() })
+      setSavedAt(Date.now())
+    }, 400)
+
     contentEditor.on('update', queueSave)
     titleEditor.on('update', queueSave)
     return () => {
       contentEditor.off('update', queueSave)
       titleEditor.off('update', queueSave)
     }
-  }, [contentEditor, titleEditor, queueSave])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contentEditor, titleEditor])
 
   useEffect(() => {
     const ago = Math.floor((Date.now() - (savedAt || 0)) / 1000)

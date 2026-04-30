@@ -46,7 +46,7 @@ export const Header = ({ setPrefs }: { setPrefs: (patch: Partial<DiaryUIPrefs>) 
       </button>
 
       <span
-        className="text-[12px] uppercase tracking-[0.4px] whitespace-nowrap flex-shrink-0"
+        className="text-[12px] uppercase tracking-[0.4px] whitespace-nowrap shrink-0"
         style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}
       >
         {today}
@@ -60,7 +60,7 @@ export const Header = ({ setPrefs }: { setPrefs: (patch: Partial<DiaryUIPrefs>) 
           className="inline-flex items-center gap-1.5 px-2.5 py-[5px] rounded-full text-[12px] font-medium cursor-pointer transition-all hover:bg-black/5 active:translate-y-px whitespace-nowrap flex-shrink-0"
           style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)', border: 'none', background: 'transparent' }}
         >
-          <Icon name="book" size={13} /> all entries
+          <Icon name="BookOpen" size={13} /> all entries
         </button>
       )}
 
@@ -70,7 +70,7 @@ export const Header = ({ setPrefs }: { setPrefs: (patch: Partial<DiaryUIPrefs>) 
         className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer transition-all hover:bg-black/5 border-none flex-shrink-0"
         style={{ background: 'transparent', color: 'var(--d-ink-soft)' }}
       >
-        <Icon name="trash" size={13} />
+        <Icon name="Trash2" size={13} />
       </button>
     </header>
   )
@@ -117,15 +117,16 @@ function DiaryShell() {
 
   return (
     <div
-      className="diary-root flex flex-col w-full h-dvh overflow-hidden"
+      className="flex flex-col w-full h-dvh overflow-hidden"
       style={
         {
           '--d-paper': p.bg,
-          '--d-paper-edge': p.edge,
+          // '--d-paper-edge': p.edge,
           '--d-rule': p.edge,
-          '--d-pattern': p.pattern ?? 'none',
-          '--d-pattern-size': p.patternSize ?? 'auto',
-          background: p.bg,
+          // '--d-pattern': p.pattern ?? 'none',
+          // '--d-pattern-size': p.patternSize ?? 'auto',
+          // background: p.bg,
+          backgroundColor: '#f4ede0',
           color: 'var(--d-ink)',
           fontFamily: 'var(--d-serif)',
           WebkitFontSmoothing: 'antialiased',
@@ -133,13 +134,13 @@ function DiaryShell() {
       }
     >
       {/* paper grain overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-[1000] opacity-70"
+      {/* <div
+        className="fixed inset-0 pointer-events-none z-1000 opacity-70"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.14 0 0 0 0 0.10 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")`,
           mixBlendMode: 'multiply',
         }}
-      />
+      /> */}
 
       {/* <Header setPrefs={setPrefs} /> */}
 

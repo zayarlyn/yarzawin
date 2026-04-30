@@ -76,7 +76,7 @@ const EmptyDIaryListItem = ({ createDiary }: { createDiary: () => void }) => {
         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium cursor-pointer active:translate-y-px hover:opacity-90"
         style={{ fontFamily: 'var(--d-ui)', background: 'var(--d-accent)', color: '#fff' }}
       >
-        <Icon name="plus" /> write your first entry
+        <Icon name="Plus" /> write your first entry
       </button>
     </div>
   )
@@ -120,18 +120,18 @@ export function DiaryList() {
   return (
     <div className="flex flex-col flex-1 min-h-0">
       {/* header */}
-      <div className="flex items-end justify-between gap-6 px-14 pt-4 pb-5 shrink-0" style={{ borderBottom: '1px solid var(--d-rule)' }}>
+      <div className="flex items-center justify-between gap-6 px-14 py-2 shrink-0" style={{ borderBottom: '1px solid var(--d-rule)' }}>
         <div>
-          <div className="text-[12px] uppercase tracking-[1px] mt-1.5" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
+          {/* <div className="text-[12px] uppercase tracking-[1px]" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
             {greeting}, Zayar
-          </div>
-          <h1 className="text-[56px] font-semibold leading-none -mb-1.5" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
+          </div> */}
+          <h1 className="-translate-y-2 text-5xl font-semibold leading-none" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
             my <span className="today-underline">diary</span>
           </h1>
         </div>
-        <div className="flex gap-2.5 items-center pb-1">
+        <div className="flex gap-2.5 items-center">
           {/* search */}
-          <label
+          {/* <label
             className="flex items-center gap-2 rounded-full px-3.5 py-2 w-56"
             style={{ border: '1px solid var(--d-rule)', background: 'rgba(255,255,255,0.5)' }}
           >
@@ -143,13 +143,13 @@ export function DiaryList() {
               className="flex-1 bg-transparent outline-none text-[13px] min-w-0"
               style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}
             />
-          </label>
+          </label> */}
           <button
             onClick={createDiary}
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium cursor-pointer transition-all active:translate-y-px hover:opacity-90"
             style={{ fontFamily: 'var(--d-ui)', background: 'var(--d-accent)', color: '#fff', border: '1px solid var(--d-accent)' }}
           >
-            <Icon name="plus" size={14} /> new entry
+            <Icon name="Plus" size={14} /> new entry
           </button>
         </div>
       </div>
@@ -157,7 +157,7 @@ export function DiaryList() {
       {/* body */}
       <div
         className="flex-1 overflow-y-auto pb-15"
-        style={{ backgroundColor: 'var(--d-paper)', backgroundImage: 'var(--d-pattern)', backgroundSize: 'var(--d-pattern-size)' }}
+        // style={{ backgroundColor: 'var(--d-paper)', backgroundImage: 'var(--d-pattern)', backgroundSize: 'var(--d-pattern-size)' }}
       >
         {sortedDiaries.length === 0 ? (
           <EmptyDIaryListItem createDiary={createDiary} />

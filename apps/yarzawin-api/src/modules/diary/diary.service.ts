@@ -26,6 +26,7 @@ export class DiaryService {
 
   async deleteDiary({ id }: DeleteDiaryDto) {
     await this.db.softDelete(DiaryEntity, { id })
-    return { id }
+
+    return new Promise((resolve) => setTimeout(() => resolve({ id }), 1000)) // simulate delay
   }
 }

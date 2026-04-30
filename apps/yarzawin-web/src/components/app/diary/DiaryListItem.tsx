@@ -34,7 +34,6 @@ export const DiaryListItem = ({ diary }: { diary: DiaryUIEntry }) => {
   const d = parseISO(diary.date)
 
   const firstPhoto = diary.body.match(/<img[^>]+src="([^"]+)"/)?.[1]
-  const hasSketch = diary.body.includes('sketch-block')
   const wordCount = diary.bodyText.trim().split(/\s+/).filter(Boolean).length
 
   return (
@@ -52,7 +51,7 @@ export const DiaryListItem = ({ diary }: { diary: DiaryUIEntry }) => {
         {format(d, 'd')}
       </div>
       {diary.title && (
-        <h3 className="text-base font-semibold leading-[1.3] mt-1.5 mb-2" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
+        <h3 className="text-xl font-semibold leading-[1.3] mt-1.5 mb-2" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
           {diary.title}
         </h3>
       )}
@@ -77,15 +76,10 @@ export const DiaryListItem = ({ diary }: { diary: DiaryUIEntry }) => {
       <div className="flex gap-1.5 flex-wrap mt-2.5">
         {firstPhoto && (
           <DiaryListItemBadge>
-            <Icon name="image" size={10} /> photo
+            <Icon name="Image" size={10} /> photo
           </DiaryListItemBadge>
         )}
-        {hasSketch && (
-          <DiaryListItemBadge>
-            <Icon name="sketch" size={10} /> sketch
-          </DiaryListItemBadge>
-        )}
-        {wordCount > 0 && (
+{wordCount > 0 && (
           <DiaryListItemBadge>
             {wordCount} {wordCount === 1 ? 'word' : 'words'}
           </DiaryListItemBadge>

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { DiaryService } from './diary.service'
 import { CreateDiaryDto, DeleteDiaryDto, UpdateDiaryDto } from './diary.dto'
 
@@ -22,7 +22,7 @@ export class DiaryController {
   }
 
   @Delete('/:id')
-  async deleteDiary(@Body() data: DeleteDiaryDto) {
-    return this.diaryService.deleteDiary(data)
+  async deleteDiary(@Param('id') id: string) {
+    return this.diaryService.deleteDiary({ id })
   }
 }

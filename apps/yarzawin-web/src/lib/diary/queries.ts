@@ -16,8 +16,7 @@ export const diaryListQueryOptions = () =>
   })
 
 export const createDiaryMutation = () => ({
-  mutationFn: (data: { title: string; content?: string }) =>
-    api.post<DiaryEntry>('/diaries', data).then((r) => r.data),
+  mutationFn: (data: { title: string; content?: string }) => api.post<DiaryEntry>('/diaries', data).then((r) => r.data),
 })
 
 export const updateDiaryMutation = () => ({
@@ -26,6 +25,5 @@ export const updateDiaryMutation = () => ({
 })
 
 export const deleteDiaryMutation = () => ({
-  mutationFn: (id: string) =>
-    api.delete('/diaries', { data: { id } }).then((r) => r.data),
+  mutationFn: (id: string) => api.delete('/diaries/' + id).then((r) => r.data),
 })

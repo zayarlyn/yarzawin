@@ -8,7 +8,7 @@ const EditorToolbar = ({ titleEditor, contentEditor }: { titleEditor: Editor; co
   const [isFullscreen, setIsFullscreen] = useState(false)
 
   return (
-    <div className="fixed top-1/2 -translate-y-1/2 right-[max(4px,50%-320px)] w-fit">
+    <div className="fixed top-1/2 -translate-y-1/2 right-[max(4px,50%-372px)] w-fit">
       <DiaryListItemBadge className="bg-white! shadow-sm p-0">
         <div className="p-1 flex flex-col gap-2">
           <Button
@@ -21,7 +21,7 @@ const EditorToolbar = ({ titleEditor, contentEditor }: { titleEditor: Editor; co
               contentEditor.chain().focus('end').run()
             }}
           >
-            <Icon name="edit" />
+            <Icon name="Pencil" />
           </Button>
           <Button
             variant={isFullscreen ? 'default' : 'outline'}
@@ -35,7 +35,7 @@ const EditorToolbar = ({ titleEditor, contentEditor }: { titleEditor: Editor; co
               document.documentElement.requestFullscreen()
             }}
           >
-            <Icon name="eye" />
+            <Icon name="Eye" />
           </Button>
         </div>
       </DiaryListItemBadge>

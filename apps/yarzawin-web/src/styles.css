@@ -1,3 +1,6 @@
+@import '@fontsource-variable/caveat';
+@import '@fontsource-variable/noto-serif';
+@import '@fontsource-variable/noto-serif/wght-italic.css';
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
@@ -64,7 +67,7 @@
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --input: oklch(88.224% 0.0001 271.152);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -79,6 +82,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* me */
+  --d-primary: #b8651e;
 }
 
 .dark {
@@ -124,19 +130,24 @@
   }
 
   .diary-root {
-    /* static tokens — never change at runtime */
-    --d-ink: #2a241c;
     --d-ink-soft: #5b5246;
     --d-ink-faint: #a89e8a;
     --d-accent: #b8651e;
     --d-accent-soft: #e8c89a;
     --d-accent-tint: #f4e6d2;
     --d-highlight: #f5d97a;
+    --d-paper-cream: #f5efe1;
+    --d-paper-cream-edge: #d9cfb6;
+    --d-paper-lined: #f6f0e2;
+    --d-paper-dotted: #f4eedc;
+    --d-paper-edge: #d6cdb4;
+    --d-paper-bone: #ede4d0;
+    --d-paper-bone-edge: #cfc4a8;
     --d-shadow-sm: 0 1px 2px rgba(42, 36, 28, 0.08);
     --d-shadow-md: 0 4px 16px rgba(42, 36, 28, 0.1), 0 1px 3px rgba(42, 36, 28, 0.06);
     --d-shadow-lg: 0 18px 48px rgba(42, 36, 28, 0.18), 0 4px 12px rgba(42, 36, 28, 0.08);
-    --d-hand: 'Caveat', cursive;
-    --d-serif: 'Noto Serif', Georgia, serif;
+    --d-hand: 'Caveat Variable', cursive;
+    --d-serif: 'Noto Serif Variable', Georgia, serif;
     --d-ui: 'Inter', system-ui, sans-serif;
     /* paper tokens set dynamically via style prop — NOT declared here to avoid overriding JS values */
   }

@@ -2,6 +2,8 @@ vite.config.*.timestamp*
 
 .nx
 .claude
+.tanstack
+.superpowers
 
 **/node_modules
 **/dist

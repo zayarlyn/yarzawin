@@ -1,12 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from '@tanstack/react-router'
+import { ConfirmDialog } from '@yarzawin-web/components/shared/ConfirmDialog'
 import { Icon } from '@yarzawin-web/components/shared/Icon'
-import { diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
+import { deleteDiaryMutation, diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
 import { compareDesc, parseISO } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { transformToUIDiary } from './DiaryList'
 import { animate } from './DiaryListItem'
 import { Editor } from './Editor'
+import { Button } from '@yarzawin-web/components/ui/button'
 
 function NavCard(props: { label: string; title: string; disabled: boolean; align?: 'left' | 'right'; onClick: () => void }) {
   const { label, title, disabled, align = 'left', onClick } = props
@@ -38,9 +40,19 @@ function NavCard(props: { label: string; title: string; disabled: boolean; align
 
 export function DiaryPage() {
   const [status, setStatus] = useState('')
+  const [confirmOpen, setConfirmOpen] = useState(false)
   const { id } = useParams({ strict: false }) as { id: string }
 
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  const { mutate: deleteEntry, status: deleteStatus } = useMutation({
+    ...deleteDiaryMutation(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['diary', 'list'] }).then(() => {
+        navigate({ to: '/diary' })
+      })
+    },
+  })
   const { data: apiEntries = [] } = useQuery({ ...diaryListQueryOptions() })
   const entries = [...apiEntries]
     .map(transformToUIDiary)
@@ -55,6 +67,13 @@ export function DiaryPage() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        onConfirm={() => deleteEntry(id)}
+        entryTitle={activeEntry.title || 'untitled'}
+        mutating={deleteStatus === 'pending'}
+      />
       {/* header */}
       <div
         className="flex items-center gap-2.5 px-5 py-2.5 shrink-0"
@@ -65,7 +84,7 @@ export function DiaryPage() {
           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium cursor-pointer transition-all hover:bg-black/5 active:translate-y-px border-transparent"
           style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}
         >
-          <Icon name="arrowL" size={13} /> all entries
+          <Icon name="ArrowLeft" size={13} /> all entries
         </button>
         <div className="flex-1" />
         <div
@@ -75,6 +94,9 @@ export function DiaryPage() {
           <span className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse translate-y-px" />
           {status}
         </div>
+        <Button variant="outline" size="icon" className="bg-transparent shadow-none" onClick={() => setConfirmOpen(true)}>
+          <Icon name="Trash2" />
+        </Button>
         {/* <button
           onClick={() => setIsEditing((v) => !v)}
           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium cursor-pointer transition-all hover:bg-black/5 active:translate-y-px border-transparent"

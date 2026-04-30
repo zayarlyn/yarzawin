@@ -26,17 +26,17 @@ export interface PaperConfig {
 }
 
 export const PAPER_BG: Record<PaperType, PaperConfig> = {
-  cream: { bg: '#f5efe1', edge: '#d9cfb6' },
+  cream: { bg: 'var(--d-paper-cream)', edge: 'var(--d-paper-cream-edge)' },
   lined: {
-    bg: '#f6f0e2',
-    edge: '#d6cdb4',
+    bg: 'var(--d-paper-lined)',
+    edge: 'var(--d-paper-edge)',
     pattern: 'repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(42,36,28,0.10) 31px, rgba(42,36,28,0.10) 32px)',
   },
   dotted: {
-    bg: '#f4eedc',
-    edge: '#d6cdb4',
+    bg: 'var(--d-paper-dotted)',
+    edge: 'var(--d-paper-edge)',
     pattern: 'radial-gradient(circle, rgba(42,36,28,0.12) 1px, transparent 1.2px)',
     patternSize: '18px 18px',
   },
-  bone: { bg: '#ede4d0', edge: '#cfc4a8' },
+  bone: { bg: 'var(--d-paper-bone)', edge: 'var(--d-paper-bone-edge)' },
 }
