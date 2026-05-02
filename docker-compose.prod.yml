@@ -1,0 +1,48 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - '80:80'
+      # - '443:443'
+    volumes:
+      - ./docker/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      # - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - api
+      - web
+    restart: unless-stopped
+
+  web:
+    image: ghcr.io/zayarlyn/yarzawin-web:latest
+    restart: unless-stopped
+
+  api:
+    image: ghcr.io/zayarlyn/yarzawin-api:latest
+    environment:
+      PORT: '8010'
+      DB_HOST: postgres
+      DB_USER: ${DB_USER}
+      DB_PWD: ${DB_PWD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PWD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

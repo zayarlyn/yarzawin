@@ -4,8 +4,13 @@ vite.config.*.timestamp*
 .claude
 .tanstack
 .superpowers
+.worktrees
+**/claude.md
 
 **/node_modules
 **/dist
+**/docs
 
 apps/yarzawin-web/src/routeTree.gen.ts
+
+**/.env

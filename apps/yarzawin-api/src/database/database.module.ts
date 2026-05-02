@@ -7,9 +7,10 @@ import { SettingEntity } from './entities/SettingEntity'
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory(...args) {
+      useFactory() {
         return {
           type: 'postgres',
+          host: process.env.DB_HOST,
           database: process.env.DB_NAME,
           username: process.env.DB_USER,
           password: process.env.DB_PWD,
