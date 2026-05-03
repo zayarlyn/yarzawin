@@ -19,7 +19,7 @@ services:
   api:
     image: ghcr.io/zayarlyn/yarzawin-api:latest
     environment:
-      PORT: '8010'
+      PORT: ${PORT}
       DB_HOST: postgres
       DB_USER: ${DB_USER}
       DB_PWD: ${DB_PWD}

@@ -3,24 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build:api": "npm run build --workspace=apps/yarzawin-api",
-    "build:web": "npm run build --workspace=apps/yarzawin-web",
-    "dev:api": "npm run dev --workspace=apps/yarzawin-api",
-    "dev:web": "npm run dev --workspace=apps/yarzawin-web",
-    "test:api": "npm run test --workspace=apps/yarzawin-api",
-    "test:web": "npm run test --workspace=apps/yarzawin-web",
-    "lint": "eslint \"apps/**/*.{ts,tsx}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "dev:docker": "docker compose -f docker/docker-compose.dev.yml up",
+    "install:all": "npm install && cd apps/yarzawin-api && npm install && cd ../yarzawin-web && npm install"
   },
   "devDependencies": {
-    "@eslint/js": "^9.8.0",
     "@types/node": "^20.19.39",
-    "eslint": "^9.8.0",
-    "eslint-config-prettier": "^10.0.0",
-    "jiti": "2.4.2",
-    "prettier": "~3.6.2",
-    "tslib": "^2.3.0",
-    "typescript": "~5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "concurrently": "^9.2.1",
+    "prettier": "~3.6.2"
   }
 }

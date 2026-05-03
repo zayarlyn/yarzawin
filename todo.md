@@ -3,9 +3,11 @@
 - [x] [yarzawin-web] integrate backend with diary app
 - [x] [yarzawin-web] move local state to routes
 - [x] [yarzawin-web] retire DiaryContext
-- [ ] dockerize for deployment
-- [ ] [yarzawin-api] fix timezone issues
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+- [x] dockerize for deployment
+- [x] [yarzawin-api] fix timezone issues
+- [x] dockerize for development
+- [ ] [yarzawin-api] add user table for auth
+- [ ] [yarzawin-api] pwd-based auth
+- [ ] [yarzawin-api] data transfer encryption
+- [ ] [yarzawin-web] diary editor image upload
+- [ ] [yarzawin-api] explore db backup strategies on VM

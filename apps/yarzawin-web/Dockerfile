@@ -7,6 +7,11 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+FROM builder AS development
+RUN npm i
+EXPOSE 3010
+CMD ["npm", "run", "dev"]
+
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.web.conf /etc/nginx/conf.d/default.conf
