@@ -18,7 +18,15 @@ export class SettingService {
 
   async saveSettingsByFeature({ feature, valueByTypeAndName }: SaveSettingsByFeatureDto) {
     const settingRecords = Object.entries(valueByTypeAndName).reduce(
-      (items, [type, valueByName]) => [...items, ...Object.entries(valueByName).map(([name, value]) => ({ feature, type, name, value }))],
+      (items, [type, valueByName]) => [
+        ...items,
+        ...Object.entries(valueByName).map(([name, value]) => ({
+          feature,
+          type,
+          name,
+          value,
+        })),
+      ],
       [],
     )
     return this.db.upsert(SettingEntity, settingRecords, ['feature', 'type', 'name'])

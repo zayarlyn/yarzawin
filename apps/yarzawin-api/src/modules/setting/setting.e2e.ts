@@ -28,7 +28,10 @@ describe('Setting (e2e)', () => {
   it('POST /api/settings/:feature — saves settings by feature', async () => {
     const res = await request(app.getHttpServer())
       .post('/api/settings/diary')
-      .send({ feature: 'diary', valueByTypeAndName: { theme: { paper: 'cream' } } })
+      .send({
+        feature: 'diary',
+        valueByTypeAndName: { theme: { paper: 'cream' } },
+      })
 
     expect(res.status).toBe(201)
   })

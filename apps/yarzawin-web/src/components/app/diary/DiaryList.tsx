@@ -125,7 +125,7 @@ export function DiaryList() {
           {/* <div className="text-[12px] uppercase tracking-[1px]" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
             {greeting}, Zayar
           </div> */}
-          <h1 className="-translate-y-2 text-5xl font-semibold leading-none" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
+          <h1 className="-translate-y-2 text-4xl font-semibold leading-none" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
             my <span className="today-underline">diary</span>
           </h1>
         </div>

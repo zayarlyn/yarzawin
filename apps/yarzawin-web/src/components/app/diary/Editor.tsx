@@ -2,12 +2,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Placeholder from '@tiptap/extension-placeholder'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit, { StarterKitOptions } from '@tiptap/starter-kit'
-import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 import { format, parseISO } from 'date-fns'
 import debounce from 'lodash/debounce'
 import { useEffect, useState } from 'react'
 import EditorToolbar from './EditorToolbar'
 import type { DiaryUIEntry } from './types'
+import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 
 const starterKitProps: Partial<StarterKitOptions> = {
   bold: false,
@@ -51,7 +51,7 @@ export function Editor({ setStatus, activeEntry }: { setStatus: (status: string)
     const queueSave = debounce(() => {
       updateMutation.mutate({ id: activeEntry.id, title: titleEditor.getText(), content: contentEditor.getHTML() })
       setSavedAt(Date.now())
-    }, 400)
+    }, 1000)
 
     contentEditor.on('update', queueSave)
     titleEditor.on('update', queueSave)

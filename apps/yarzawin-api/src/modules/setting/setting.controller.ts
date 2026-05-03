@@ -13,6 +13,9 @@ export class SettingController {
 
   @Post('/:feature')
   async saveSettings(@Param('feature') feature: string, @Body() { valueByTypeAndName }: SaveSettingsByFeatureDto) {
-    return this.settingService.saveSettingsByFeature({ feature, valueByTypeAndName })
+    return this.settingService.saveSettingsByFeature({
+      feature,
+      valueByTypeAndName,
+    })
   }
 }

@@ -1,0 +1,32 @@
+services:
+  yarzawin-api:
+    build:
+      context: ..
+      dockerfile: docker/api.Dockerfile
+      target: dev
+    volumes:
+      - ../apps/yarzawin-api/src:/app/apps/yarzawin-api/src
+    env_file:
+      - .env
+    environment:
+      DB_HOST: yarzawin-postgres
+    ports:
+      - '${PORT:-8010}:${PORT:-8010}'
+    depends_on:
+      - yarzawin-postgres
+
+  yarzawin-postgres:
+    container_name: yarzawin-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PWD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

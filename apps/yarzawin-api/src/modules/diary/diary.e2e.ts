@@ -35,7 +35,11 @@ describe('Diary (e2e)', () => {
   })
 
   it('PUT /api/diaries/:id — updates the diary', async () => {
-    const updatedFields = { id, title: 'Updated title', content: 'Updated content' }
+    const updatedFields = {
+      id,
+      title: 'Updated title',
+      content: 'Updated content',
+    }
     const res = await request(app.getHttpServer()).put(`/api/diaries/${id}`).send(updatedFields)
 
     expect(res.body).toMatchObject(updatedFields)

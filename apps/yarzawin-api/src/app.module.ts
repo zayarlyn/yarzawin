@@ -4,6 +4,7 @@ import { DatabaseModule } from './database/database.module'
 import { APP_PIPE } from '@nestjs/core'
 import { ZodValidationPipe } from 'nestjs-zod'
 import { SettingModule } from './modules/setting/setting.module'
+import 'dotenv/config'
 
 export const appModuleMetadata: ModuleMetadata = {
   providers: [

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "esnext",
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,
@@ -11,12 +12,5 @@
       "@yarzawin-web/*": ["./src/*"]
     }
   },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
-  "extends": "../../tsconfig.base.json"
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }
