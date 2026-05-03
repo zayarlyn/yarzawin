@@ -14,4 +14,4 @@ RUN npm ci --omit=dev
 COPY --from=builder /app/dist ./
 EXPOSE 8010
 
-CMD ["node", "main.js"]
+CMD ["node", "src/main.js"]
