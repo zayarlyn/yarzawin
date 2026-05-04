@@ -12,11 +12,11 @@ export class SettingService {
     this.db = this.dbService.getEm()
   }
 
-  async getSettingsByFeature({ feature }: { feature: string }) {
-    return this.db.find(SettingEntity, { where: { feature } })
+  async getSettingsByFeature({ feature, userId }: { feature: string; userId: string }) {
+    return this.db.find(SettingEntity, { where: { feature, userId } })
   }
 
-  async saveSettingsByFeature({ feature, valueByTypeAndName }: SaveSettingsByFeatureDto) {
+  async saveSettingsByFeature({ feature, valueByTypeAndName, userId }: SaveSettingsByFeatureDto & { userId: string }) {
     const settingRecords = Object.entries(valueByTypeAndName).reduce(
       (items, [type, valueByName]) => [
         ...items,
@@ -25,10 +25,12 @@ export class SettingService {
           type,
           name,
           value,
+          userId,
         })),
       ],
       [],
     )
-    return this.db.upsert(SettingEntity, settingRecords, ['feature', 'type', 'name'])
+
+    return this.db.upsert(SettingEntity, settingRecords, ['feature', 'type', 'name', 'userId'])
   }
 }

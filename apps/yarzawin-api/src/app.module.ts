@@ -4,6 +4,7 @@ import { DatabaseModule } from './database/database.module'
 import { APP_PIPE } from '@nestjs/core'
 import { ZodValidationPipe } from 'nestjs-zod'
 import { SettingModule } from './modules/setting/setting.module'
+import { AuthModule } from './modules/auth/auth.module'
 import 'dotenv/config'
 
 export const appModuleMetadata: ModuleMetadata = {
@@ -13,7 +14,7 @@ export const appModuleMetadata: ModuleMetadata = {
       useClass: ZodValidationPipe,
     },
   ],
-  imports: [DatabaseModule, DiaryModule, SettingModule],
+  imports: [DatabaseModule, AuthModule, DiaryModule, SettingModule],
 }
 
 @Module(appModuleMetadata)

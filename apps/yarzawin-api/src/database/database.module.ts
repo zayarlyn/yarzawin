@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { DiaryEntity } from './entities/DiaryEntity'
 import { DbService } from './database.service'
 import { SettingEntity } from './entities/SettingEntity'
+import { UserEntity } from './entities/UserEntity'
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { SettingEntity } from './entities/SettingEntity'
           database: process.env.DB_NAME,
           username: process.env.DB_USER,
           password: process.env.DB_PWD,
-          entities: [DiaryEntity, SettingEntity],
+          entities: [DiaryEntity, SettingEntity, UserEntity],
         }
       },
     }),

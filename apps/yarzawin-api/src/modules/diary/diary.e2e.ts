@@ -6,6 +6,7 @@ import { appModuleMetadata } from 'src/app.module'
 
 describe('Diary (e2e)', () => {
   let app: INestApplication
+  let token: string
   let id: string
 
   beforeAll(async () => {
@@ -13,6 +14,11 @@ describe('Diary (e2e)', () => {
     app = moduleRef.createNestApplication()
     app.setGlobalPrefix('/api')
     await app.init()
+
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ username: 'test', password: 'password' })
+    token = res.body.accessToken
   })
 
   afterAll(async () => {
@@ -20,7 +26,9 @@ describe('Diary (e2e)', () => {
   })
 
   it('GET /api/diaries — returns a list of diaries', async () => {
-    const res = await request(app.getHttpServer()).get('/api/diaries')
+    const res = await request(app.getHttpServer())
+      .get('/api/diaries')
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toBe(200)
     expect(Array.isArray(res.body)).toBe(true)
@@ -29,24 +37,27 @@ describe('Diary (e2e)', () => {
   it('POST /api/diaries — creates a diary', async () => {
     const res = await request(app.getHttpServer())
       .post('/api/diaries')
+      .set('Authorization', `Bearer ${token}`)
       .send({ title: 'title ' + Date.now(), content: 'content ' + Date.now() })
     id = res.body.id
     expect(res.body.id).toBeDefined()
   })
 
   it('PUT /api/diaries/:id — updates the diary', async () => {
-    const updatedFields = {
-      id,
-      title: 'Updated title',
-      content: 'Updated content',
-    }
-    const res = await request(app.getHttpServer()).put(`/api/diaries/${id}`).send(updatedFields)
+    const updatedFields = { id, title: 'Updated title', content: 'Updated content' }
+    const res = await request(app.getHttpServer())
+      .put(`/api/diaries/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(updatedFields)
 
     expect(res.body).toMatchObject(updatedFields)
   })
 
   it('DELETE /api/diaries/:id — deletes the diary', async () => {
-    const res = await request(app.getHttpServer()).delete(`/api/diaries/${id}`).send({ id })
+    const res = await request(app.getHttpServer())
+      .delete(`/api/diaries/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+
     expect(res.body).toMatchObject({ id })
   })
 })

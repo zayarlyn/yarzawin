@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common'
-import { EntityManager } from 'typeorm'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { DbService } from 'src/database/database.service'
 import { DiaryEntity } from 'src/database/entities/DiaryEntity'
-import { CreateDiaryDto, DeleteDiaryDto, UpdateDiaryDto } from './diary.dto'
+import { EntityManager } from 'typeorm'
+import { CreateDiaryDto, UpdateDiaryDto } from './diary.dto'
 
 @Injectable({})
 export class DiaryService {
@@ -12,21 +12,23 @@ export class DiaryService {
     this.db = this.dbService.getEm()
   }
 
-  async getDiaryList() {
-    return this.db.find(DiaryEntity, {})
+  async getDiaryList(userId: string) {
+    return this.db.find(DiaryEntity, { where: { userId } })
   }
 
-  async createDiary(data: CreateDiaryDto) {
+  async createDiary(data: CreateDiaryDto & { userId: string }) {
     return this.db.save(DiaryEntity, data)
   }
 
-  async updateDiary(data: UpdateDiaryDto) {
-    return this.db.save(DiaryEntity, data)
+  async updateDiary(data: UpdateDiaryDto & { userId: string }) {
+    const result = await this.db.update(DiaryEntity, { id: data.id, userId: data.userId }, data)
+    if (result.affected === 0) throw new NotFoundException()
+    return this.db.findOneBy(DiaryEntity, { id: data.id })
   }
 
-  async deleteDiary({ id }: DeleteDiaryDto) {
-    await this.db.softDelete(DiaryEntity, { id })
-
-    return new Promise((resolve) => setTimeout(() => resolve({ id }), 1000)) // simulate delay
+  async deleteDiary({ id, userId }: { id: string; userId: string }) {
+    const result = await this.db.softDelete(DiaryEntity, { id, userId })
+    if (result.affected === 0) throw new NotFoundException()
+    return { id }
   }
 }

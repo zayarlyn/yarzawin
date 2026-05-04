@@ -3,10 +3,10 @@ export type ViewType = 'editor' | 'read'
 
 export interface DiaryUIEntry {
   id: string
-  date: string      // 'YYYY-MM-DD' derived from created_at
+  date: string // 'YYYY-MM-DD' derived from created_at
   title: string
-  body: string      // raw innerHTML from contentEditable (= API content)
-  bodyText: string  // plain text for search/preview/word count
+  body: string // raw innerHTML from contentEditable (= API content)
+  bodyText: string // plain text for search/preview/word count
   updatedAt: number // ms timestamp from updated_at
 }
 

@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
-    "dev:docker": "docker compose -f docker/docker-compose.dev.yml up",
-    "install:all": "npm install && cd apps/yarzawin-api && npm install && cd ../yarzawin-web && npm install"
+    "build:docker": "docker compose -f docker/docker-compose.dev.yml build",
+    "dev:all": "docker compose -f docker/docker-compose.dev.yml up",
+    "install:all": "docker compose -f docker/docker-compose.dev.yml exec yarzawin-api npm install && docker compose -f docker/docker-compose.dev.yml exec yarzawin-web npm install",
+    "test:e2e": "docker compose -f docker/docker-compose.dev.yml exec yarzawin-api npm run test:e2e",
+    "db:reset": "docker exec -i yarzawin-postgres psql -U yarzawin_user -d yarzawin < apps/yarzawin-api/src/database/sql/schema.sql"
   },
   "devDependencies": {
     "@types/node": "^20.19.39",
-    "concurrently": "^9.2.1",
     "prettier": "~3.6.2"
   }
 }

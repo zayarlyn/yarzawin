@@ -10,7 +10,7 @@ RUN npm run build
 FROM builder AS development
 RUN npm i
 EXPOSE 3010
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host"]
 
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html

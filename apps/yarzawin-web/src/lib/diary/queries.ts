@@ -5,6 +5,7 @@ export interface DiaryEntry {
   id: string
   title: string
   content: string
+  userId: string
   created_at: string
   updated_at: string
 }
@@ -25,5 +26,5 @@ export const updateDiaryMutation = () => ({
 })
 
 export const deleteDiaryMutation = () => ({
-  mutationFn: (id: string) => api.delete('/diaries/' + id).then((r) => r.data),
+  mutationFn: (id: string) => api.delete('/diaries').then((r) => r.data),
 })

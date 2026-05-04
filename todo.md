@@ -6,6 +6,7 @@
 - [x] dockerize for deployment
 - [x] [yarzawin-api] fix timezone issues
 - [x] dockerize for development
+- [ ] [yarzawin-web] fix mis-updating diaries when moving with left/right navigation
 - [ ] [yarzawin-api] add user table for auth
 - [ ] [yarzawin-api] pwd-based auth
 - [ ] [yarzawin-api] data transfer encryption
