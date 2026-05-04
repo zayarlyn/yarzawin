@@ -1,10 +1,6 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import cookieParser from 'cookie-parser'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
@@ -12,7 +8,9 @@ async function bootstrap() {
 
   const globalPrefix = '/api'
   app.setGlobalPrefix(globalPrefix)
-  app.enableCors()
+  app.use(cookieParser())
+  // app.enableCors({ origin: process.env.CORS_ORIGIN, credentials: true })
+  app.enableCors({ origin: true, credentials: true })
 
   const port = process.env.PORT!
   await app.listen(port)

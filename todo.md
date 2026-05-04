@@ -7,8 +7,11 @@
 - [x] [yarzawin-api] fix timezone issues
 - [x] dockerize for development
 - [ ] [yarzawin-web] fix mis-updating diaries when moving with left/right navigation
-- [ ] [yarzawin-api] add user table for auth
+- [ ] static docker container names
+- [x] [yarzawin-api] add user table for auth
+- [ ] [yarzawin-api] assess token only jwt authorization
 - [ ] [yarzawin-api] pwd-based auth
+- [ ] [yarzawin-web] login page and auth flow
 - [ ] [yarzawin-api] data transfer encryption
 - [ ] [yarzawin-web] diary editor image upload
 - [ ] [yarzawin-api] explore db backup strategies on VM

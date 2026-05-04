@@ -25,11 +25,11 @@ services:
       DB_PWD: ${DB_PWD}
       DB_NAME: ${DB_NAME}
     depends_on:
-      postgres:
+      yarzawin-postgres:
         condition: service_healthy
     restart: unless-stopped
 
-  postgres:
+  yarzawin-postgres:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: ${DB_USER}
