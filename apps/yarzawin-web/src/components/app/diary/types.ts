@@ -1,7 +1,7 @@
 export type PaperType = 'cream' | 'lined' | 'dotted' | 'bone'
 export type ViewType = 'editor' | 'read'
 
-export interface DiaryUIEntry {
+export interface DiaryUIDiary {
   id: string
   date: string // 'YYYY-MM-DD' derived from created_at
   title: string

@@ -4,7 +4,7 @@ import { Badge } from '@yarzawin-web/components/ui/badge'
 import { cn } from '@yarzawin-web/lib/utils'
 import { format, parseISO } from 'date-fns'
 import { MouseEvent, PropsWithChildren } from 'react'
-import { DiaryUIEntry } from './types'
+import { DiaryUIDiary } from './types'
 
 export const DiaryListItemBadge = ({ children, className }: { className?: string } & PropsWithChildren) => {
   return (
@@ -29,7 +29,7 @@ export const animate = (styles: any) => (e: MouseEvent<HTMLDivElement, globalThi
   })
 }
 
-export const DiaryListItem = ({ diary }: { diary: DiaryUIEntry }) => {
+export const DiaryListItem = ({ diary }: { diary: DiaryUIDiary }) => {
   const navigate = useNavigate()
   const d = parseISO(diary.date)
 
@@ -79,7 +79,7 @@ export const DiaryListItem = ({ diary }: { diary: DiaryUIEntry }) => {
             <Icon name="Image" size={10} /> photo
           </DiaryListItemBadge>
         )}
-{wordCount > 0 && (
+        {wordCount > 0 && (
           <DiaryListItemBadge>
             {wordCount} {wordCount === 1 ? 'word' : 'words'}
           </DiaryListItemBadge>

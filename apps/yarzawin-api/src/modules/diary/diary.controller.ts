@@ -10,13 +10,19 @@ export class DiaryController {
   constructor(private diaryService: DiaryService) {}
 
   @Get('/')
-  async getDiaries(@Auth('userId') userId: string) {
-    return this.diaryService.getDiaryList(userId)
+  async getDiaries(@Body('where') where: any, @Auth('userId') userId: string) {
+    return this.diaryService.getDiaryList({ ...where, userId })
   }
 
   @Post('/')
   async createDiary(@Body() data: CreateDiaryDto, @Auth('userId') userId: string) {
     return this.diaryService.createDiary({ ...data, userId })
+  }
+
+  @Get('/:id')
+  async getDiary(@Param('id') id: string, @Auth('userId') userId: string) {
+    const entries = await this.diaryService.getDiaryList({ id, userId })
+    return entries[0] ?? null
   }
 
   @Put('/:id')

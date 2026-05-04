@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { DiaryPage } from '@yarzawin-web/components/app/diary/DiaryPage'
-import { diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
+import { diaryItemQueryOptions } from '@yarzawin-web/lib/diary/queries'
 
 export const Route = createFileRoute('/diary/$id/')({
-  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(diaryListQueryOptions()),
+  loader: ({ context: { queryClient }, params }) => queryClient.prefetchQuery(diaryItemQueryOptions(params.id)),
   component: DiaryPage,
 })

@@ -1,7 +1,5 @@
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { createRootRouteWithContext, Outlet, useRouterState } from '@tanstack/react-router'
 import { QueryClient } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Suspense } from 'react'
 import { Sidebar } from '@yarzawin-web/components/shared/Sidebar'
 
@@ -10,17 +8,19 @@ interface RouterContext {
 }
 
 function RootLayout() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
+      {pathname === '/login' ? (
+        <Outlet />
+      ) : (
         <div className="diary-root flex">
           <Sidebar />
           <Outlet />
         </div>
-      </Suspense>
-      {/* <TanStackRouterDevtools />
-      <ReactQueryDevtools /> */}
-    </>
+      )}
+    </Suspense>
   )
 }
 

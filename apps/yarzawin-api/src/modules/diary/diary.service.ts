@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { DbService } from 'src/database/database.service'
 import { DiaryEntity } from 'src/database/entities/DiaryEntity'
-import { EntityManager } from 'typeorm'
+import { EntityManager, FindOneOptions } from 'typeorm'
 import { CreateDiaryDto, UpdateDiaryDto } from './diary.dto'
 
 @Injectable({})
@@ -12,8 +12,8 @@ export class DiaryService {
     this.db = this.dbService.getEm()
   }
 
-  async getDiaryList(userId: string) {
-    return this.db.find(DiaryEntity, { where: { userId } })
+  async getDiaryList(where: FindOneOptions<DiaryEntity>['where']) {
+    return this.db.find(DiaryEntity, { where, order: { created_at: 'desc' } })
   }
 
   async createDiary(data: CreateDiaryDto & { userId: string }) {

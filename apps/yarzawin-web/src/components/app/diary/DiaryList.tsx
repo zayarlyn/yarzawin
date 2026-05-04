@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { Icon } from '@yarzawin-web/components/shared/Icon'
-import { createDiaryMutation, DiaryEntry, diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
+import { createDiaryMutation, DiaryItem, diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
 import { compareDesc, format, getHours, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useMemo, useState } from 'react'
 import { DiaryListItem } from './DiaryListItem'
-import type { DiaryUIEntry } from './types'
+import type { DiaryUIDiary } from './types'
 
 function stripHtml(html: string): string {
   return html
@@ -15,7 +15,7 @@ function stripHtml(html: string): string {
     .trim()
 }
 
-export function transformToUIDiary(e: DiaryEntry): DiaryUIEntry {
+export function transformToUIDiary(e: DiaryItem): DiaryUIDiary {
   return {
     id: e.id,
     date: format(parseISO(e.created_at), 'yyyy-MM-dd'),
@@ -56,7 +56,7 @@ const CreateDiaryListItem = ({ createDiary }: { createDiary: () => void }) => {
       <div>
         start a new
         <br />
-        entry
+        diary
       </div>
     </div>
   )
@@ -76,7 +76,7 @@ const EmptyDIaryListItem = ({ createDiary }: { createDiary: () => void }) => {
         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium cursor-pointer active:translate-y-px hover:opacity-90"
         style={{ fontFamily: 'var(--d-ui)', background: 'var(--d-accent)', color: '#fff' }}
       >
-        <Icon name="Plus" /> write your first entry
+        <Icon name="Plus" /> write your first diary
       </button>
     </div>
   )
@@ -92,9 +92,9 @@ export function DiaryList() {
 
   const createMutation = useMutation({
     ...createDiaryMutation(),
-    onSuccess: (entry) => {
+    onSuccess: (diary) => {
       queryClient.invalidateQueries({ queryKey: ['diary', 'list'] })
-      navigate({ to: '/diary/$id', params: { id: entry.id } })
+      navigate({ to: '/diary/$id', params: { id: diary.id } })
     },
   })
 
@@ -149,7 +149,7 @@ export function DiaryList() {
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium cursor-pointer transition-all active:translate-y-px hover:opacity-90"
             style={{ fontFamily: 'var(--d-ui)', background: 'var(--d-accent)', color: '#fff', border: '1px solid var(--d-accent)' }}
           >
-            <Icon name="Plus" size={14} /> new entry
+            <Icon name="Plus" size={14} /> new diary
           </button>
         </div>
       </div>

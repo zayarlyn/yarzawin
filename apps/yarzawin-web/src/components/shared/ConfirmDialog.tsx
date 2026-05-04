@@ -8,12 +8,12 @@ type Props = {
   open: boolean
   onOpenChange: (open: boolean) => void
   onConfirm: () => void
-  entryTitle: string
+  diaryTitle: string
   mutating?: boolean
 }
 
 export function ConfirmDialog(props: Props) {
-  const { open, onOpenChange, onConfirm, entryTitle, mutating } = props
+  const { open, onOpenChange, onConfirm, diaryTitle, mutating } = props
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
@@ -29,7 +29,7 @@ export function ConfirmDialog(props: Props) {
         >
           {/* <div> */}
           <div className="mb-2 tracking-[2px] uppercase text-[10px]" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
-            remove entry
+            remove diary
           </div>
           <DialogTitle
             className="m-0 mb-3 font-semibold leading-none"
@@ -42,7 +42,7 @@ export function ConfirmDialog(props: Props) {
             style={{ fontFamily: 'var(--d-serif)', fontSize: 15, lineHeight: 1.55, color: 'var(--d-ink-soft)' }}
           >
             This will permanently remove &ldquo;
-            <strong style={{ color: 'var(--d-ink)' }}>{entryTitle}</strong>
+            <strong style={{ color: 'var(--d-ink)' }}>{diaryTitle}</strong>
             &rdquo;. You can&apos;t undo this.
           </DialogDescription>
           {/* </div> */}

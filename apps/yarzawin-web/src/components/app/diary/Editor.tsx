@@ -6,7 +6,7 @@ import { format, parseISO } from 'date-fns'
 import debounce from 'lodash/debounce'
 import { useEffect, useState } from 'react'
 import EditorToolbar from './EditorToolbar'
-import type { DiaryUIEntry } from './types'
+import type { DiaryUIDiary } from './types'
 import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 
 const starterKitProps: Partial<StarterKitOptions> = {
@@ -24,24 +24,24 @@ const starterKitProps: Partial<StarterKitOptions> = {
   hardBreak: false,
 }
 
-export function Editor({ setStatus, activeEntry }: { setStatus: (status: string) => void; activeEntry: DiaryUIEntry }) {
+export function Editor({ setStatus, activeDiary }: { setStatus: (status: string) => void; activeDiary: DiaryUIDiary }) {
   const queryClient = useQueryClient()
 
   const updateMutation = useMutation({
     ...updateDiaryMutation(),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['diary', 'list'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['diary', activeDiary.id] }),
   })
   const [savedAt, setSavedAt] = useState<number | null>(null)
 
   const contentEditor = useEditor({
     extensions: [StarterKit.configure(starterKitProps), Placeholder.configure({ placeholder: "start writing — what's on your mind?" })],
-    content: activeEntry.body || '',
+    content: activeDiary.body || '',
     editable: false,
   })
 
   const titleEditor = useEditor({
     extensions: [StarterKit.configure(starterKitProps), Placeholder.configure({ placeholder: 'give today a name…' })],
-    content: activeEntry.title || '',
+    content: activeDiary.title || '',
     editable: false,
   })
 
@@ -49,18 +49,20 @@ export function Editor({ setStatus, activeEntry }: { setStatus: (status: string)
     if (!contentEditor || !titleEditor) return
 
     const queueSave = debounce(() => {
-      updateMutation.mutate({ id: activeEntry.id, title: titleEditor.getText(), content: contentEditor.getHTML() })
+      updateMutation.mutate({ id: activeDiary.id, title: titleEditor.getText(), content: contentEditor.getHTML() })
       setSavedAt(Date.now())
     }, 1000)
 
     contentEditor.on('update', queueSave)
     titleEditor.on('update', queueSave)
     return () => {
+      queueSave.flush()
       contentEditor.off('update', queueSave)
       titleEditor.off('update', queueSave)
+      queueSave.cancel()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contentEditor, titleEditor])
+  }, [contentEditor, titleEditor, activeDiary.id])
 
   useEffect(() => {
     const ago = Math.floor((Date.now() - (savedAt || 0)) / 1000)
@@ -75,10 +77,10 @@ export function Editor({ setStatus, activeEntry }: { setStatus: (status: string)
 
   useEffect(() => {
     if (!contentEditor || !titleEditor) return
-    contentEditor.commands.setContent(activeEntry.body || '')
-    titleEditor.commands.setContent(activeEntry.title || '')
+    contentEditor.commands.setContent(activeDiary.body || '', { emitUpdate: false })
+    titleEditor.commands.setContent(activeDiary.title || '', { emitUpdate: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeEntry.id, contentEditor, titleEditor])
+  }, [activeDiary.id, contentEditor, titleEditor])
 
   if (!contentEditor || !titleEditor) return null
 
@@ -88,7 +90,7 @@ export function Editor({ setStatus, activeEntry }: { setStatus: (status: string)
         className="text-[11px] uppercase tracking-[2px] mb-2 flex items-center gap-2.5"
         style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}
       >
-        {format(parseISO(activeEntry.date), 'EEEE, MMMM d, yyyy').toUpperCase()}
+        {format(parseISO(activeDiary.date), 'EEEE, MMMM d, yyyy').toUpperCase()}
       </div>
 
       <EditorContent editor={titleEditor} className="editor-title" />

@@ -2,9 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { ConfirmDialog } from '@yarzawin-web/components/shared/ConfirmDialog'
 import { Icon } from '@yarzawin-web/components/shared/Icon'
-import { deleteDiaryMutation, diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
+import { deleteDiaryMutation, diaryItemQueryOptions, diaryListQueryOptions } from '@yarzawin-web/lib/diary/queries'
 import { compareDesc, parseISO } from 'date-fns'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { transformToUIDiary } from './DiaryList'
 import { animate } from './DiaryListItem'
 import { Editor } from './Editor'
@@ -16,7 +16,7 @@ function NavCard(props: { label: string; title: string; disabled: boolean; align
   return (
     <div
       onClick={disabled ? undefined : onClick}
-      className="flex-1 rounded-md px-4 py-3 max-w-56 transition-all"
+      className="flex-1 rounded-md px-4 py-3 max-w-56 transition-all select-none"
       style={{
         border: '1px solid var(--d-rule)',
         background: 'rgba(255,255,255,0.4)',
@@ -45,7 +45,7 @@ export function DiaryPage() {
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { mutate: deleteEntry, status: deleteStatus } = useMutation({
+  const { mutate: deleteDiary, status: deleteStatus } = useMutation({
     ...deleteDiaryMutation(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['diary', 'list'] }).then(() => {
@@ -53,25 +53,31 @@ export function DiaryPage() {
       })
     },
   })
+  const { data: diaryData } = useQuery(diaryItemQueryOptions(id))
   const { data: apiEntries = [] } = useQuery({ ...diaryListQueryOptions() })
   const entries = [...apiEntries]
     .map(transformToUIDiary)
     .sort((a, b) => compareDesc(parseISO(a.date), parseISO(b.date)) || b.updatedAt - a.updatedAt)
 
   const activeIdx = entries.findIndex((e) => e.id === id)
-  const activeEntry = activeIdx >= 0 ? entries[activeIdx] : null
-  const prevEntry = activeIdx >= 0 ? (entries[activeIdx + 1] ?? null) : null
-  const nextEntry = activeIdx > 0 ? entries[activeIdx - 1] : null
+  const activeDiary = diaryData ? transformToUIDiary(diaryData) : null
+  const prevDiary = activeIdx >= 0 ? (entries[activeIdx + 1] ?? null) : null
+  const nextDiary = activeIdx > 0 ? entries[activeIdx - 1] : null
 
-  if (!activeEntry) return <div className="p-4">Entry not found</div>
+  useEffect(() => {
+    if (prevDiary) queryClient.prefetchQuery(diaryItemQueryOptions(prevDiary.id))
+    if (nextDiary) queryClient.prefetchQuery(diaryItemQueryOptions(nextDiary.id))
+  }, [prevDiary?.id, nextDiary?.id])
+
+  if (!activeDiary) return <div className="p-4">Diary not found</div>
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
-        onConfirm={() => deleteEntry(id)}
-        entryTitle={activeEntry.title || 'untitled'}
+        onConfirm={() => deleteDiary(id)}
+        diaryTitle={activeDiary.title || 'untitled'}
         mutating={deleteStatus === 'pending'}
       />
       {/* header */}
@@ -114,7 +120,7 @@ export function DiaryPage() {
           backgroundSize: 'var(--d-pattern-size), auto',
         }}
       >
-        <Editor setStatus={setStatus} activeEntry={activeEntry} />
+        <Editor setStatus={setStatus} activeDiary={activeDiary} />
       </div>
 
       <div
@@ -123,16 +129,16 @@ export function DiaryPage() {
       >
         <NavCard
           label="← previous"
-          title={prevEntry ? prevEntry.title || 'untitled' : 'nothing earlier'}
-          disabled={!prevEntry}
-          onClick={() => prevEntry && navigate({ to: '/diary/$id', params: { id: prevEntry.id } })}
+          title={prevDiary ? prevDiary.title || 'untitled' : 'nothing earlier'}
+          disabled={!prevDiary}
+          onClick={() => prevDiary && navigate({ to: '/diary/$id', params: { id: prevDiary.id } })}
         />
         <NavCard
           label="next →"
-          title={nextEntry ? nextEntry.title || 'untitled' : 'nothing later'}
-          disabled={!nextEntry}
+          title={nextDiary ? nextDiary.title || 'untitled' : 'nothing later'}
+          disabled={!nextDiary}
           align="right"
-          onClick={() => nextEntry && navigate({ to: '/diary/$id', params: { id: nextEntry.id } })}
+          onClick={() => nextDiary && navigate({ to: '/diary/$id', params: { id: nextDiary.id } })}
         />
       </div>
     </div>

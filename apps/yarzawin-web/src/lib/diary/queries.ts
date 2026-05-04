@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 import api from '../api'
 
-export interface DiaryEntry {
+export interface DiaryItem {
   id: string
   title: string
   content: string
@@ -13,16 +13,22 @@ export interface DiaryEntry {
 export const diaryListQueryOptions = () =>
   queryOptions({
     queryKey: ['diary', 'list'],
-    queryFn: () => api.get<DiaryEntry[]>('/diaries').then((r) => r.data),
+    queryFn: () => api.get<DiaryItem[]>('/diaries').then((r) => r.data),
+  })
+
+export const diaryItemQueryOptions = (id: string) =>
+  queryOptions({
+    queryKey: ['diary', id],
+    queryFn: () => api.get<DiaryItem>(`/diaries/${id}`).then((r) => r.data),
   })
 
 export const createDiaryMutation = () => ({
-  mutationFn: (data: { title: string; content?: string }) => api.post<DiaryEntry>('/diaries', data).then((r) => r.data),
+  mutationFn: (data: { title: string; content?: string }) => api.post<DiaryItem>('/diaries', data).then((r) => r.data),
 })
 
 export const updateDiaryMutation = () => ({
   mutationFn: (data: { id: string; title: string; content?: string }) =>
-    api.put<DiaryEntry>(`/diaries/${data.id}`, data).then((r) => r.data),
+    api.put<DiaryItem>(`/diaries/${data.id}`, data).then((r) => r.data),
 })
 
 export const deleteDiaryMutation = () => ({
