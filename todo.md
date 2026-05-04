@@ -6,7 +6,7 @@
 - [x] dockerize for deployment
 - [x] [yarzawin-api] fix timezone issues
 - [x] dockerize for development
-- [ ] [yarzawin-web] fix mis-updating diaries when moving with left/right navigation
+- [x] [yarzawin-web] fix mis-updating diaries when moving with left/right navigation
 - ~~[ ] static docker container names~~
 - [x] [yarzawin-api] add user table for auth
 - [x] [yarzawin-api] assess token only jwt authorization
@@ -15,3 +15,4 @@
 - [ ] [yarzawin-api] data transfer encryption
 - [ ] [yarzawin-web] diary editor image upload
 - [ ] [yarzawin-api] explore db backup strategies on VM
+- [ ] [yarzawin-api] integrate nestjs config module
