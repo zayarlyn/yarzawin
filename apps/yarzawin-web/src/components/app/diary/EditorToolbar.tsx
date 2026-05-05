@@ -6,23 +6,33 @@ import { useState } from 'react'
 
 const EditorToolbar = ({ titleEditor, contentEditor }: { titleEditor: Editor; contentEditor: Editor }) => {
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isEditing, setIsEditing] = useState(true)
 
   return (
     <div className="fixed top-1/2 -translate-y-1/2 right-[max(4px,50%-372px)] w-fit">
       <DiaryListItemBadge className="bg-white! shadow-sm p-0">
         <div className="p-1 flex flex-col gap-2">
           <Button
-            variant="outline"
+            variant={contentEditor.isEditable ? 'default' : 'outline'}
             size="icon"
             className="rounded-full shadow-none cursor-pointer"
             onClick={() => {
-              titleEditor.setEditable(true)
-              contentEditor.setEditable(true)
+              setIsEditing((p) => !p)
+              titleEditor.setEditable(!isEditing)
+              contentEditor.setEditable(!isEditing)
               contentEditor.chain().focus('end').run()
             }}
           >
-            <Icon name="Pencil" />
+            <Icon name={isEditing ? 'Check' : 'Pencil'} />
           </Button>
+          {/* <Button
+            variant={isFullscreen ? 'default' : 'outline'}
+            size="icon"
+            className="rounded-full shadow-none cursor-pointer"
+            onClick={() => {}}
+          >
+            <Icon name="CircleQuestionMark" />
+          </Button> */}
           <Button
             variant={isFullscreen ? 'default' : 'outline'}
             size="icon"

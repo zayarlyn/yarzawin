@@ -18,6 +18,9 @@ import {
   Check,
   Sun,
   Notebook,
+  CircleQuestionMark,
+  Unlink,
+  Link,
 } from 'lucide-react'
 
 const ICONS = {
@@ -40,6 +43,9 @@ const ICONS = {
   Check,
   Sun,
   Notebook,
+  CircleQuestionMark,
+  Unlink,
+  Link,
 }
 
 export type IconName = keyof typeof ICONS

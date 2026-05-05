@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react'
 import { DiaryListItem } from './DiaryListItem'
 import type { DiaryUIDiary } from './types'
 
-function stripHtml(html: string): string {
+export function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, ' ')
     .replace(/\s+/g, ' ')
@@ -86,9 +86,8 @@ export function DiaryList() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { data: diaries = [] } = useQuery(diaryListQueryOptions())
-  const sortedDiaries = [...diaries]
-    .map(transformToUIDiary)
-    .sort((a, b) => compareDesc(parseISO(a.date), parseISO(b.date)) || b.updatedAt - a.updatedAt)
+  const sortedDiaries = [...diaries].map(transformToUIDiary)
+  // .sort((a, b) => compareDesc(parseISO(a.date), parseISO(b.date)) || b.updatedAt - a.updatedAt)
 
   const createMutation = useMutation({
     ...createDiaryMutation(),

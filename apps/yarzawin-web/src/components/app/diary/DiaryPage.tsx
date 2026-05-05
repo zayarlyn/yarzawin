@@ -55,9 +55,7 @@ export function DiaryPage() {
   })
   const { data: diaryData } = useQuery(diaryItemQueryOptions(id))
   const { data: apiEntries = [] } = useQuery({ ...diaryListQueryOptions() })
-  const entries = [...apiEntries]
-    .map(transformToUIDiary)
-    .sort((a, b) => compareDesc(parseISO(a.date), parseISO(b.date)) || b.updatedAt - a.updatedAt)
+  const entries = [...apiEntries].map(transformToUIDiary)
 
   const activeIdx = entries.findIndex((e) => e.id === id)
   const activeDiary = diaryData ? transformToUIDiary(diaryData) : null
@@ -124,7 +122,7 @@ export function DiaryPage() {
       </div>
 
       <div
-        className="px-8 mx-auto w-full max-w-160 flex justify-between py-3 gap-3"
+        className="px-4 mx-auto w-full max-w-160 flex justify-between py-3 gap-3"
         style={{ borderTop: '1px solid var(--d-rule)', background: 'var(--d-paper)' }}
       >
         <NavCard

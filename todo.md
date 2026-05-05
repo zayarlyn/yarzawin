@@ -11,8 +11,12 @@
 - [x] [yarzawin-api] add user table for auth
 - [x] [yarzawin-api] assess token only jwt authorization
 - [x] [yarzawin-web] login page and auth flow
+- [x] [yarzawin-web] diary editor minimum formatting (italic, bold, underline)
+- [x] [yarzawin-api] integrate nestjs config module
+- [ ] [yarzawin-web] diary zen mode
+- [ ] [yarzawin-web] improve diary view/write UX
+- [x] [yarzawin-web] floating formatting toolbar for diary editor
 - [ ] [yarzawin-api] pwd-based auth
 - [ ] [yarzawin-api] data transfer encryption
 - [ ] [yarzawin-web] diary editor image upload
 - [ ] [yarzawin-api] explore db backup strategies on VM
-- [ ] [yarzawin-api] integrate nestjs config module
