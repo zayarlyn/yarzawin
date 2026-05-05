@@ -45,7 +45,7 @@ const FloatingToolbar = ({ editor }: { editor: Editor }) => {
   }
 
   return (
-    <BubbleMenu editor={editor} updateDelay={100} options={{ onUpdate: onSelectionUpdate, onHide: onSelectionUpdate }}>
+    <BubbleMenu editor={editor} updateDelay={100} options={{ onUpdate: onSelectionUpdate, onHide: onSelectionUpdate }} className="z-50">
       <DiaryListItemBadge className="bg-white! shadow-md p-0 rounded-xl">
         <div className="p-1 flex gap-2">
           {items.map((item) => (

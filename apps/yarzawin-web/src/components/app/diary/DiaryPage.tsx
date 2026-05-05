@@ -16,7 +16,7 @@ function NavCard(props: { label: string; title: string; disabled: boolean; align
   return (
     <div
       onClick={disabled ? undefined : onClick}
-      className="flex-1 rounded-md px-4 py-3 max-w-56 transition-all select-none"
+      className="flex-1 rounded-md px-4 py-3 max-w-60 transition-all select-none"
       style={{
         border: '1px solid var(--d-rule)',
         background: 'rgba(255,255,255,0.4)',
@@ -31,7 +31,7 @@ function NavCard(props: { label: string; title: string; disabled: boolean; align
       <div className="text-[10px] uppercase tracking-[1.5px] mb-0.5" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
         {label}
       </div>
-      <div className="text-[22px] leading-[1.1]" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
+      <div className="text-lg leading-[1.1] line-clamp-1" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
         {title}
       </div>
     </div>
@@ -55,7 +55,7 @@ export function DiaryPage() {
   })
   const { data: diaryData } = useQuery(diaryItemQueryOptions(id))
   const { data: apiEntries = [] } = useQuery({ ...diaryListQueryOptions() })
-  const entries = [...apiEntries].map(transformToUIDiary)
+  const entries = apiEntries.map(transformToUIDiary)
 
   const activeIdx = entries.findIndex((e) => e.id === id)
   const activeDiary = diaryData ? transformToUIDiary(diaryData) : null
@@ -80,7 +80,7 @@ export function DiaryPage() {
       />
       {/* header */}
       <div
-        className="flex items-center gap-2.5 px-5 py-2.5 shrink-0"
+        className="flex items-center gap-2.5 px-5 py-2 shrink-0"
         style={{ borderBottom: '1px solid var(--d-rule)', background: 'var(--d-paper)' }}
       >
         <button
@@ -122,7 +122,7 @@ export function DiaryPage() {
       </div>
 
       <div
-        className="px-4 mx-auto w-full max-w-160 flex justify-between py-3 gap-3"
+        className="z-50 px-4 mx-auto w-full max-w-160 flex justify-between py-3 gap-3"
         style={{ borderTop: '1px solid var(--d-rule)', background: 'var(--d-paper)' }}
       >
         <NavCard

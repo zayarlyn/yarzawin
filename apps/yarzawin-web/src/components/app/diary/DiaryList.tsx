@@ -7,6 +7,7 @@ import _ from 'lodash'
 import { useMemo, useState } from 'react'
 import { DiaryListItem } from './DiaryListItem'
 import type { DiaryUIDiary } from './types'
+import { Button } from '@yarzawin-web/components/ui/button'
 
 export function stripHtml(html: string): string {
   return html
@@ -54,7 +55,7 @@ const CreateDiaryListItem = ({ createDiary }: { createDiary: () => void }) => {
         <span className="-translate-y-0.5">+</span>
       </div>
       <div>
-        start a new
+        Write a new
         <br />
         diary
       </div>
@@ -143,13 +144,13 @@ export function DiaryList() {
               style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}
             />
           </label> */}
-          <button
+          <Button
             onClick={createDiary}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium cursor-pointer transition-all active:translate-y-px hover:opacity-90"
+            className=""
             style={{ fontFamily: 'var(--d-ui)', background: 'var(--d-accent)', color: '#fff', border: '1px solid var(--d-accent)' }}
           >
             <Icon name="Plus" size={14} /> new diary
-          </button>
+          </Button>
         </div>
       </div>
 

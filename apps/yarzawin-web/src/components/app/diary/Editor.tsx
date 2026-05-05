@@ -12,6 +12,7 @@ import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 import { format, parseISO } from 'date-fns'
 import debounce from 'lodash/debounce'
 import { useEffect, useState } from 'react'
+import { CaretLabel } from './CaretLabel'
 import { DiaryListItemBadge } from './DiaryListItem'
 import EditorToolbar from './EditorToolbar'
 import FloatingToolbar from './FloatingToolbar'
@@ -107,6 +108,7 @@ export function Editor({ setStatus, activeDiary }: { setStatus: (status: string)
 
       <EditorContent editor={contentEditor} className="text-[19px] leading-[1.7] outline-none editor-body" />
       <FloatingToolbar editor={contentEditor} />
+      <CaretLabel editor={contentEditor} />
 
       <EditorToolbar titleEditor={titleEditor} contentEditor={contentEditor} />
 

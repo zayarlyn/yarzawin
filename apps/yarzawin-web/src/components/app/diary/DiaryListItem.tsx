@@ -47,9 +47,9 @@ export const DiaryListItem = ({ diary }: { diary: DiaryUIDiary }) => {
       <div className="text-xs uppercase tracking-[1.5px] mb-1.5" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
         {format(d, 'EEE  d - MMMM yyyy').toLowerCase()}
       </div>
-      <div className="text-4xl font-semibold leading-none mb-1" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
+      {/* <div className="text-4xl font-semibold leading-none mb-1" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
         {format(d, 'd')}
-      </div>
+      </div> */}
       {diary.title && (
         <h3 className="text-xl font-semibold leading-[1.3] mt-1.5 mb-2" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
           {diary.title}
