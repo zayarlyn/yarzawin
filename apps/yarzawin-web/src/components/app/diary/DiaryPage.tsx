@@ -83,13 +83,14 @@ export function DiaryPage() {
         className="flex items-center gap-2.5 px-5 py-2 shrink-0"
         style={{ borderBottom: '1px solid var(--d-rule)', background: 'var(--d-paper)' }}
       >
-        <button
+        <Button
           onClick={() => navigate({ to: '/diary' })}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium cursor-pointer transition-all hover:bg-black/5 active:translate-y-px border-transparent"
+          // className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium cursor-pointer transition-all hover:bg-black/5 active:translate-y-px border-transparent"
+          variant="ghost"
           style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}
         >
           <Icon name="ArrowLeft" size={13} /> all entries
-        </button>
+        </Button>
         <div className="flex-1" />
         <div
           className="ml-auto flex items-center gap-1.5 text-[11px] tracking-[0.5px]"

@@ -16,7 +16,7 @@ function RootLayout() {
         <Outlet />
       ) : (
         <div className="diary-root flex">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <Outlet />
         </div>
       )}

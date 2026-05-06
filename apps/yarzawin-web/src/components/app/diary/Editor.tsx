@@ -7,6 +7,9 @@ import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
+import Image from '@tiptap/extension-image'
+import HardBreak from '@tiptap/extension-hard-break'
+import { Dropcursor } from '@tiptap/extensions'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 import { format, parseISO } from 'date-fns'
@@ -27,6 +30,16 @@ const contentExtensions = [
   Link.configure({ openOnClick: false, enableClickSelection: true }),
   Placeholder.configure({ placeholder: "start writing — what's on your mind?" }),
   History,
+  HardBreak,
+  Dropcursor,
+  Image.configure({
+    resize: {
+      enabled: true,
+      directions: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+      alwaysPreserveAspectRatio: true,
+      minHeight: 100,
+    },
+  }),
 ]
 
 export function Editor({ setStatus, activeDiary }: { setStatus: (status: string) => void; activeDiary: DiaryUIDiary }) {
@@ -118,10 +131,18 @@ export function Editor({ setStatus, activeDiary }: { setStatus: (status: string)
         .editor-title .ProseMirror p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--d-ink-faint); font-style: italic; pointer-events: none; float: left; height: 0; }
         .editor-body .ProseMirror { font-family: var(--d-serif); color: var(--d-ink); caret-color: var(--d-accent); min-height: 240px; outline: none; }
         .editor-body .ProseMirror p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--d-ink-faint); font-style: italic; pointer-events: none; float: left; height: 0; }
-        .editor-body .ProseMirror p { margin: 0 0 0.9em; }
+        .editor-body .ProseMirror p { margin: 0 0 .8em; }
         .editor-body .ProseMirror p:last-child { margin-bottom: 0; }
         .editor-body a { text-decoration: underline; }
         .editor-body::selection { background: var(--d-accent); color: #fff; }
+        [data-resize-wrapper] { display: inline-block; position: relative; }
+        [data-resize-container] img { display: block; max-width: 100%; }
+        [data-resize-container][data-resize-state="true"] { outline: 2px solid var(--d-accent); outline-offset: 2px; }
+        [data-resize-handle] { width: 12px; height: 12px; border-radius: 50%; background: var(--d-accent); position: absolute; z-index: 10; }
+        [data-resize-handle="top-left"] { top: 0; left: 0; transform: translate(-50%, -50%); cursor: nwse-resize; }
+        [data-resize-handle="top-right"] { top: 0; right: 0; transform: translate(50%, -50%); cursor: nesw-resize; }
+        [data-resize-handle="bottom-left"] { bottom: 0; left: 0; transform: translate(-50%, 50%); cursor: nesw-resize; }
+        [data-resize-handle="bottom-right"] { bottom: 0; right: 0; transform: translate(50%, 50%); cursor: nwse-resize; }
       `}</style>
     </div>
   )

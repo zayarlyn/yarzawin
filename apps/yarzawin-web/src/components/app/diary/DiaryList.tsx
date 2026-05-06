@@ -126,7 +126,7 @@ export function DiaryList() {
             {greeting}, Zayar
           </div> */}
           <h1 className="-translate-y-2 text-4xl font-semibold leading-none" style={{ fontFamily: 'var(--d-hand)', color: 'var(--d-ink)' }}>
-            my <span className="today-underline">diary</span>
+            {/* my <span className="today-underline">diary</span> */}
           </h1>
         </div>
         <div className="flex gap-2.5 items-center">
