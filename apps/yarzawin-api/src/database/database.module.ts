@@ -6,6 +6,7 @@ import { DbService } from './database.service'
 import { SettingEntity } from './entities/SettingEntity'
 import { UserEntity } from './entities/UserEntity'
 import { Env } from '../config/env.schema'
+import { ObjectEntity } from './entities/ObjectEntity'
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { Env } from '../config/env.schema'
           database: config.get('DB_NAME'),
           username: config.get('DB_USER'),
           password: config.get('DB_PWD'),
-          entities: [DiaryEntity, SettingEntity, UserEntity],
+          entities: [DiaryEntity, SettingEntity, UserEntity, ObjectEntity],
         }
       },
     }),

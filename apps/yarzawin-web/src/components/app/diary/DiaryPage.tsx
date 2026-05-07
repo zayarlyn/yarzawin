@@ -80,7 +80,7 @@ export function DiaryPage() {
       />
       {/* header */}
       <div
-        className="flex items-center gap-2.5 px-5 py-2 shrink-0"
+        className="flex items-center gap-2.5 px-4 py-2 shrink-0"
         style={{ borderBottom: '1px solid var(--d-rule)', background: 'var(--d-paper)' }}
       >
         <Button

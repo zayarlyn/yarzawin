@@ -41,3 +41,21 @@ CREATE TABLE "setting" (
   deleted_at TIMESTAMP,
   UNIQUE("feature", "type", "name", "user_id")
 ); 
+
+CREATE TABLE "object" (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  filename TEXT NOT NULL,
+  mime_type TEXT NOT NULL,
+  size INTEGER NOT NULL,
+  width INTEGER,
+  height INTEGER,
+
+  entity_name TEXT NOT NULL,
+  entity_id TEXT NOT NULL, 
+
+  user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP
+);

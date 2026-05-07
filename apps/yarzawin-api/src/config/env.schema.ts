@@ -8,6 +8,10 @@ export const envSchema = z.object({
   DB_PWD: z.string().min(1),
   DB_NAME: z.string().min(1),
   JWT_SECRET: z.string().min(1),
+  S3_ENDPOINT: z.string().min(1),
+  S3_ACCESS_KEY_ID: z.string().min(1),
+  S3_SECRET_ACCESS_KEY: z.string().min(1),
+  S3_BUCKET_NAME: z.string().min(1),
 })
 
 export type Env = z.infer<typeof envSchema>

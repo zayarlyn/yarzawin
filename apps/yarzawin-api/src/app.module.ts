@@ -7,6 +7,7 @@ import { ZodValidationPipe } from 'nestjs-zod'
 import { SettingModule } from './modules/setting/setting.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { envSchema } from './config/env.schema'
+import { ObjectModule } from './modules/object/object.module'
 
 function validate(config: Record<string, unknown>) {
   return envSchema.parse(config)
@@ -19,7 +20,7 @@ export const appModuleMetadata: ModuleMetadata = {
       useClass: ZodValidationPipe,
     },
   ],
-  imports: [ConfigModule.forRoot({ isGlobal: true, validate }), DatabaseModule, AuthModule, DiaryModule, SettingModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true, validate }), DatabaseModule, AuthModule, DiaryModule, SettingModule, ObjectModule],
 }
 
 @Module(appModuleMetadata)

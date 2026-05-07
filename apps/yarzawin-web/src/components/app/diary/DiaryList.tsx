@@ -120,7 +120,7 @@ export function DiaryList() {
   return (
     <div className="flex flex-col flex-1 min-h-0">
       {/* header */}
-      <div className="flex items-center justify-between gap-6 px-14 py-2 shrink-0" style={{ borderBottom: '1px solid var(--d-rule)' }}>
+      <div className="flex items-center justify-between gap-6 px-4 py-2 shrink-0" style={{ borderBottom: '1px solid var(--d-rule)' }}>
         <div>
           {/* <div className="text-[12px] uppercase tracking-[1px]" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
             {greeting}, Zayar
@@ -174,13 +174,13 @@ export function DiaryList() {
           monthKeys.map((mo, idx) => (
             <div key={mo} className="pt-2">
               <div
-                className="sticky top-0 z-10 py-3 px-14 text-[11px] tracking-[2px] uppercase flex items-center gap-3 mb-2 first:mt-0"
+                className="sticky top-0 z-10 py-3 px-4 text-[11px] tracking-[2px] uppercase flex items-center gap-3 mb-2 first:mt-0"
                 style={{ backgroundColor: 'var(--d-paper)', fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}
               >
                 {mo} · {filteredDiariesByMonth[mo].length}
                 <span className="flex-1 h-px" style={{ background: 'var(--d-rule)' }} />
               </div>
-              <div className="grid gap-5 px-14" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
+              <div className="grid gap-5 px-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
                 {idx === 0 && <CreateDiaryListItem createDiary={createDiary} />}
                 {filteredDiariesByMonth[mo].map((e) => (
                   <DiaryListItem key={e.id} diary={e} />

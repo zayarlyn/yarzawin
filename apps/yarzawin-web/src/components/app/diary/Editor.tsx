@@ -8,39 +8,37 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
 import Image from '@tiptap/extension-image'
+import FileHandler from '@tiptap/extension-file-handler'
 import HardBreak from '@tiptap/extension-hard-break'
+import { ImagePlaceholder } from './ImagePlaceholder'
 import { Dropcursor } from '@tiptap/extensions'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { updateDiaryMutation } from '@yarzawin-web/lib/diary/queries'
 import { format, parseISO } from 'date-fns'
 import debounce from 'lodash/debounce'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CaretLabel } from './CaretLabel'
 import { DiaryListItemBadge } from './DiaryListItem'
 import EditorToolbar from './EditorToolbar'
 import FloatingToolbar from './FloatingToolbar'
 import type { DiaryUIDiary } from './types'
+import api from '@yarzawin-web/lib/api'
 
-const contentExtensions = [
-  Document,
-  Paragraph,
-  Bold,
-  Italic,
-  Text,
-  Link.configure({ openOnClick: false, enableClickSelection: true }),
-  Placeholder.configure({ placeholder: "start writing — what's on your mind?" }),
-  History,
-  HardBreak,
-  Dropcursor,
-  Image.configure({
-    resize: {
-      enabled: true,
-      directions: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
-      alwaysPreserveAspectRatio: true,
-      minHeight: 100,
-    },
-  }),
-]
+const uploadFile = async (file: File) => {
+  const {
+    data: { url: uploadUrl, key },
+  } = await api.post('objects/gen-temp-upload-url', {
+    filename: file.name,
+    mimeType: file.type,
+  })
+
+  await fetch(uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file })
+
+  const pubUrl = import.meta.env.S3_PUB_BUCKET_URL
+
+  return pubUrl + key
+}
+console.log(import.meta.env.S3_PUB_BUCKET_URL)
 
 export function Editor({ setStatus, activeDiary }: { setStatus: (status: string) => void; activeDiary: DiaryUIDiary }) {
   const queryClient = useQueryClient()
@@ -50,12 +48,72 @@ export function Editor({ setStatus, activeDiary }: { setStatus: (status: string)
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['diary', activeDiary.id] }),
   })
   const [savedAt, setSavedAt] = useState<number | null>(null)
+  const activeDiaryRef = useRef(activeDiary)
+  activeDiaryRef.current = activeDiary
+
+  const contentExtensions = [
+    Document,
+    Paragraph,
+    Bold,
+    Italic,
+    Text,
+    Link.configure({ openOnClick: false, enableClickSelection: true }),
+    Placeholder.configure({ placeholder: "start writing — what's on your mind?" }),
+    History,
+    HardBreak,
+    Dropcursor,
+    ImagePlaceholder,
+    Image.configure({
+      resize: {
+        enabled: true,
+        directions: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+        alwaysPreserveAspectRatio: true,
+        minHeight: 100,
+      },
+    }),
+    FileHandler.configure({
+      allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+      onDrop(editor, files, pos) {
+        files.forEach((file) => {
+          uploadFile(file).then((url) => {
+            editor
+              .chain()
+              .insertContentAt(pos, { type: 'image', attrs: { src: url } })
+              .focus()
+              .run()
+          })
+        })
+      },
+    }),
+  ]
 
   const contentEditor = useEditor({
     extensions: contentExtensions,
     content: activeDiary.body || '',
-    autofocus: 'end',
-    // editable: false,
+    autofocus: 'start',
+    editorProps: {
+      handlePaste(_view, event) {
+        const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+        const files = Array.from(event.clipboardData?.files ?? []).filter((f) => imageTypes.includes(f.type))
+        if (!files.length) return false
+        files.forEach((file) => {
+          const id = Math.random().toString(36).slice(2)
+          contentEditor?.chain().insertContent({ type: 'imagePlaceholder', attrs: { id } }).focus().run()
+          uploadFile(file).then((uploadedUrl) => {
+            if (!contentEditor) return
+            const { state, view } = contentEditor
+            const tr = state.tr
+            state.doc.descendants((node, pos) => {
+              if (node.type.name === 'imagePlaceholder' && node.attrs.id === id) {
+                tr.replaceWith(pos, pos + node.nodeSize, state.schema.nodes.image.create({ src: uploadedUrl }))
+              }
+            })
+            view.dispatch(tr)
+          })
+        })
+        return true
+      },
+    },
   })
 
   const titleEditor = useEditor({
@@ -123,7 +181,11 @@ export function Editor({ setStatus, activeDiary }: { setStatus: (status: string)
       <FloatingToolbar editor={contentEditor} />
       <CaretLabel editor={contentEditor} />
 
-      <EditorToolbar titleEditor={titleEditor} contentEditor={contentEditor} />
+      <EditorToolbar
+        titleEditor={titleEditor}
+        contentEditor={contentEditor}
+        onInsertImage={(src: string) => contentEditor.chain().focus().setImage({ src }).run()}
+      />
 
       <style>{`
         .editor-title .ProseMirror { font-family: var(--d-hand); font-size: 56px; font-weight: 600; line-height: 1.05; margin-bottom: 18px; outline: none; caret-color: var(--d-accent); color: var(--d-ink); }
