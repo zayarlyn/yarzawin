@@ -1,0 +1,49 @@
+.editor-title .ProseMirror {
+  font-family: var(--d-hand);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1.05;
+  margin-bottom: 18px;
+  outline: none;
+  caret-color: var(--d-accent);
+  color: var(--d-ink);
+}
+.editor-title .ProseMirror p {
+  margin: 0;
+}
+.editor-title .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--d-ink-faint);
+  font-style: italic;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+.editor-body .ProseMirror {
+  font-family: var(--d-serif);
+  color: var(--d-ink);
+  caret-color: var(--d-accent);
+  min-height: 240px;
+  outline: none;
+}
+.editor-body .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--d-ink-faint);
+  font-style: italic;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+.editor-body .ProseMirror p {
+  margin: 0 0 0.8em;
+}
+.editor-body .ProseMirror p:last-child {
+  margin-bottom: 0;
+}
+.editor-body a {
+  text-decoration: underline;
+}
+.editor-body::selection {
+  background: var(--d-accent);
+  color: #fff;
+}

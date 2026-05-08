@@ -1,12 +1,6 @@
-import { Node, mergeAttributes } from '@tiptap/core'
-
-declare module '@tiptap/core' {
-  interface Commands<ReturnType> {
-    diaryImage: {
-      insertDiaryImage: (options: { src: string; caption?: string }) => ReturnType
-    }
-  }
-}
+import { DOMOutputSpecArray, Node, mergeAttributes } from '@tiptap/core'
+import { ReactNodeViewRenderer } from '@tiptap/react'
+import { DiaryImageNodeView } from './DiaryImageNodeView'
 
 export const DiaryImage = Node.create({
   name: 'diaryImage',
@@ -45,10 +39,9 @@ export const DiaryImage = Node.create({
   renderHTML({ HTMLAttributes }) {
     const { src, alt, caption, tilt } = HTMLAttributes
     const figAttrs = mergeAttributes({ class: `tilt-${tilt}` })
-    if (caption) {
-      return ['figure', figAttrs, ['img', { src, alt: alt || '' }], ['figcaption', {}, caption]]
-    }
-    return ['figure', figAttrs, ['img', { src, alt: alt || '' }]]
+    return ['figure', figAttrs, ['img', { src, alt: alt || '' }], caption && ['figcaption', {}, caption]].filter(
+      Boolean,
+    ) as DOMOutputSpecArray
   },
 
   addCommands() {
@@ -64,4 +57,16 @@ export const DiaryImage = Node.create({
         },
     }
   },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(DiaryImageNodeView)
+  },
 })
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    diaryImage: {
+      insertDiaryImage: (options: { src: string; caption?: string }) => ReturnType
+    }
+  }
+}

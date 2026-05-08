@@ -3,6 +3,7 @@
 - [x] [yarzawin-web] integrate backend with diary app
 - [x] [yarzawin-web] move local state to routes
 - [x] [yarzawin-web] retire DiaryContext
+- [x] [yarzawin-web] manual code review and refactor #1
 - [x] dockerize for deployment
 - [x] [yarzawin-api] fix timezone issues
 - [x] dockerize for development
@@ -16,10 +17,12 @@
 - [ ] [yarzawin-web] diary zen mode
 - [x] [yarzawin-web] improve diary view/write UX
 - [x] [yarzawin-web] floating formatting toolbar for diary editor
-- [ ] [yarzawin-api] pwd-based auth
+- [x] [yarzawin-web] diary editor image upload
+- [x] [yarzawin-api] object upload
+- [x] [yarzawin-web] improve editor image toolbar and UX
+- [ ] [yarzawin-web] manual code review and refactor #2
 - [ ] [yarzawin-api] data transfer encryption
-- [ ] [yarzawin-web] diary editor image upload
+- [ ] [yarzawin-api] pwd-based auth
 - [ ] [yarzawin-web] auto-gen diary titles from content
 - [ ] [yarzawin-api] explore db backup strategies on VM
 - [ ] [yarzawin-api] migrate diary table to generalize "posts" table for notes, diary
-- [ ] [yarzawin-api] object upload
