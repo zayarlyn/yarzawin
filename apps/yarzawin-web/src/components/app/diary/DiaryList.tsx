@@ -19,6 +19,7 @@ export function stripHtml(html: string): string {
 export function transformToUIDiary(e: DiaryItem): DiaryUIDiary {
   return {
     id: e.id,
+    feature: e.feature,
     date: format(parseISO(e.created_at), 'yyyy-MM-dd'),
     title: e.title,
     body: e.content,
@@ -98,7 +99,7 @@ export function DiaryList() {
     },
   })
 
-  const createDiary = () => createMutation.mutate({ title: '', content: '' })
+  const createDiary = () => createMutation.mutate({ feature: 'diary', title: '', content: '' })
   const [search, setSearch] = useState('')
 
   const filteredDiariesByMonth = useMemo(() => {

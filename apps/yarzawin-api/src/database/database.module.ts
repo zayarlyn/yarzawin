@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { DiaryEntity } from './entities/DiaryEntity'
+import { PostEntity } from './entities/PostEntity'
 import { DbService } from './database.service'
 import { SettingEntity } from './entities/SettingEntity'
 import { UserEntity } from './entities/UserEntity'
@@ -19,7 +19,7 @@ import { ObjectEntity } from './entities/ObjectEntity'
           database: config.get('DB_NAME'),
           username: config.get('DB_USER'),
           password: config.get('DB_PWD'),
-          entities: [DiaryEntity, SettingEntity, UserEntity, ObjectEntity],
+          entities: [PostEntity, SettingEntity, UserEntity, ObjectEntity],
         }
       },
     }),

@@ -15,10 +15,11 @@ CREATE TABLE "user" (
 
 INSERT INTO "user" (id, username, display_name, password_hash) VALUES ('4791bbfb-57fe-4f05-a001-8c0762494187','test', 'Test User', '$2b$10$YeKTUg03yv7qoRUXOTt1c.2RGuXe3WiakXnK4kThrQxGF.CvcZh.i'); -- password: "password"
 
-CREATE TABLE "diary" (
+CREATE TABLE "post" (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   content TEXT NOT NULL,
+  feature TEXT NOT NULL CHECK( feature IN ('diary', 'blog', 'note') ), -- sub-app
 
   user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
 

@@ -3,6 +3,7 @@ export type ViewType = 'editor' | 'read'
 
 export interface DiaryUIDiary {
   id: string
+  feature: 'diary' | 'blog' | 'note'
   date: string // 'YYYY-MM-DD' derived from created_at
   title: string
   body: string // raw innerHTML from contentEditable (= API content)

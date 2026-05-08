@@ -28,7 +28,7 @@ export class ObjectEntity extends BaseEntity {
   @Column({ name: 'user_id' })
   userId: string
 
-  @ManyToOne(() => UserEntity, (user) => user.diaries)
+  @ManyToOne(() => UserEntity, (user) => user.objects)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity
 }

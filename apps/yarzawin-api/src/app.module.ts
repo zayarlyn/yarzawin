@@ -1,6 +1,6 @@
 import { Module, ModuleMetadata } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { DiaryModule } from './modules/diary/diary.module'
+import { PostModule } from './modules/post/post.module'
 import { DatabaseModule } from './database/database.module'
 import { APP_PIPE } from '@nestjs/core'
 import { ZodValidationPipe } from 'nestjs-zod'
@@ -20,7 +20,7 @@ export const appModuleMetadata: ModuleMetadata = {
       useClass: ZodValidationPipe,
     },
   ],
-  imports: [ConfigModule.forRoot({ isGlobal: true, validate }), DatabaseModule, AuthModule, DiaryModule, SettingModule, ObjectModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true, validate }), DatabaseModule, AuthModule, PostModule, SettingModule, ObjectModule],
 }
 
 @Module(appModuleMetadata)

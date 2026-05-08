@@ -44,12 +44,13 @@ const handleUploadAndInsert = async (files: File[], editor: TiptapEditor, insert
     }
 
     uploadFile(file).then((uploadedUrl) => {
+      const transaction = editor.state.tr // all changes need to go through same transaction
       editor.state.doc.descendants((node, pos) => {
         if (node.type.name === 'diaryImage' && node.attrs.src === blobUrl) {
-          editor.state.tr.setNodeMarkup(pos, undefined, { ...node.attrs, src: uploadedUrl })
+          transaction.setNodeMarkup(pos, undefined, { ...node.attrs, src: uploadedUrl })
         }
       })
-      editor.view.dispatch(editor.state.tr)
+      editor.view.dispatch(transaction)
 
       URL.revokeObjectURL(blobUrl)
     })
@@ -109,7 +110,7 @@ export function Editor({ setStatus, activeDiary }: { setStatus: (status: string)
     if (!contentEditor || !titleEditor) return
 
     const queueSave = debounce(() => {
-      updateMutation.mutate({ id: activeDiary.id, title: titleEditor.getText(), content: contentEditor.getHTML() })
+      updateMutation.mutate({ id: activeDiary.id, feature: activeDiary.feature, title: titleEditor.getText(), content: contentEditor.getHTML() })
       setSavedAt(Date.now())
     }, 1000)
 
