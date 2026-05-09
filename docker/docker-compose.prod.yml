@@ -16,7 +16,7 @@ services:
     image: ghcr.io/zayarlyn/yarzawin-web:latest
     environment:
       VITE_API_URL: ${VITE_API_URL}
-      S3_PUB_BUCKET_URL: ${S3_PUB_BUCKET_URL}
+      VITE_S3_PUB_BUCKET_URL: ${VITE_S3_PUB_BUCKET_URL}
     restart: unless-stopped
 
   api:

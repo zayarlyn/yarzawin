@@ -83,12 +83,7 @@ export function DiaryPage() {
         className="flex items-center gap-2.5 px-4 py-2 shrink-0"
         style={{ borderBottom: '1px solid var(--d-rule)', background: 'var(--d-paper)' }}
       >
-        <Button
-          onClick={() => navigate({ to: '/diary' })}
-          // className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium cursor-pointer transition-all hover:bg-black/5 active:translate-y-px border-transparent"
-          variant="ghost"
-          style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}
-        >
+        <Button onClick={() => navigate({ to: '/diary' })} variant="ghost" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}>
           <Icon name="ArrowLeft" size={13} /> all entries
         </Button>
         <div className="flex-1" />

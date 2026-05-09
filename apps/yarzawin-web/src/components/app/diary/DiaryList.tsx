@@ -122,6 +122,9 @@ export function DiaryList() {
     <div className="flex flex-col flex-1 min-h-0">
       {/* header */}
       <div className="flex items-center justify-between gap-6 px-4 py-2 shrink-0" style={{ borderBottom: '1px solid var(--d-rule)' }}>
+        <Button onClick={() => navigate({ to: '/' })} variant="ghost" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink)' }}>
+          <Icon name="ArrowLeft" size={13} /> all apps
+        </Button>
         <div>
           {/* <div className="text-[12px] uppercase tracking-[1px]" style={{ fontFamily: 'var(--d-ui)', color: 'var(--d-ink-soft)' }}>
             {greeting}, Zayar
